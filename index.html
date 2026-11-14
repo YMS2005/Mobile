@@ -1,0 +1,3105 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Programming II — Exam & Study Portal | BATU</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.2s ease-out forwards',
+            'slide-up': 'slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(10px) scale(0.98)' },
+              '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200 selection:bg-indigo-600 selection:text-white">
+
+  <!-- ==================== STICKY HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
+      <!-- Top Row: University & Course Info + Global Controls -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- Brand & Course Metadata -->
+        <div class="flex items-start sm:items-center gap-3.5">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 shrink-0 mt-0.5 sm:mt-0">
+            <i data-lucide="smartphone" class="w-6 h-6"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Mobile Programming II <span class="text-indigo-600 dark:text-indigo-400 font-bold">(Mobile Application 2)</span>
+              </h1>
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70">
+                1st Term 2026/2027
+              </span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5 truncate">
+              Borg El Arab Technological University • IT Dept 4th Year • Lecturers: <span class="font-semibold text-slate-800 dark:text-slate-200">Dr. Dina Abdelhafiz, Eng. Hazem</span>
+            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5 truncate">
+              <span class="font-semibold text-slate-800 dark:text-slate-200">Developer:</span> YMS
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Controls: Study Key Switch, Search, Progress Pill, Theme Toggle -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Reveal All Answers / Study Key Mode Toggle Switch -->
+          <label
+            for="toggle-study-mode"
+            class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-amber-300/80 dark:border-amber-700/70 bg-amber-50/80 dark:bg-amber-950/40 cursor-pointer select-none transition-all hover:bg-amber-100/80 dark:hover:bg-amber-950/70"
+            title="Toggle between interactive practice and showing all verified answers & explanations immediately"
+          >
+            <i data-lucide="key-round" class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0"></i>
+            <span class="text-xs font-bold text-amber-900 dark:text-amber-200 whitespace-nowrap">Study Key Mode</span>
+            <div class="relative inline-flex items-center">
+              <input id="toggle-study-mode" type="checkbox" class="sr-only peer" />
+              <div class="w-9 h-5 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
+            </div>
+          </label>
+
+          <!-- Overall Progress Pill -->
+          <div class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-xs">
+            <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="text-slate-500 dark:text-slate-400">Solved:</span>
+            <span id="header-progress-text" class="font-bold text-slate-900 dark:text-white">0 / 149</span>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button
+            id="btn-theme-toggle"
+            type="button"
+            aria-label="Toggle Dark or Light Mode"
+            class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
+          >
+            <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
+            <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-700"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Primary 5 Navigation Tabs + Global Search -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+        <!-- 5 Navigation Tabs -->
+        <nav role="tablist" aria-label="Course Exam & Study Tabs" class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar">
+          <button
+            role="tab"
+            data-tab="assignment1"
+            aria-selected="true"
+            class="main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer bg-indigo-600 text-white shadow-sm shadow-indigo-500/20"
+          >
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            <span>Assignment 1</span>
+            <span class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/20 text-white">60</span>
+          </button>
+
+          <button
+            role="tab"
+            data-tab="tutorial3"
+            aria-selected="false"
+            class="main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+            <span>Tutorial 3 Sheet</span>
+            <span class="px-1.5 py-0.5 text-[11px] rounded-md bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300">89</span>
+          </button>
+
+          <button
+            role="tab"
+            data-tab="mockexam"
+            aria-selected="false"
+            class="main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <i data-lucide="timer" class="w-4 h-4"></i>
+            <span>Mock Exam Simulator</span>
+          </button>
+
+          <button
+            role="tab"
+            data-tab="labs"
+            aria-selected="false"
+            class="main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <i data-lucide="code-2" class="w-4 h-4"></i>
+            <span>Labs & Coding</span>
+          </button>
+
+          <button
+            role="tab"
+            data-tab="revision"
+            aria-selected="false"
+            class="main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <i data-lucide="book-open-check" class="w-4 h-4"></i>
+            <span>Revision Notes</span>
+          </button>
+        </nav>
+
+        <!-- Global Search Input -->
+        <div class="relative w-full lg:w-72 shrink-0">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          <input
+            id="global-search"
+            type="text"
+            placeholder="Search questions, keywords, answers..."
+            class="w-full pl-9 pr-8 py-2 rounded-xl text-xs sm:text-sm bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+          />
+          <button
+            id="btn-clear-search"
+            type="button"
+            aria-label="Clear search"
+            class="hidden absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
+          >
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== STUDY KEY BANNER (VISIBLE WHEN ACTIVE) ==================== -->
+  <div id="study-mode-banner" class="hidden bg-amber-500/10 dark:bg-amber-500/15 border-b border-amber-300/70 dark:border-amber-800/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-3 text-xs text-amber-900 dark:text-amber-200">
+      <div class="flex items-center gap-2">
+        <i data-lucide="eye" class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0"></i>
+        <span><strong>Study Key Mode Active:</strong> All verified answers, fill-in-the-blank solutions, corrected False statements, and explanations are revealed for rapid revision.</span>
+      </div>
+      <button id="btn-disable-study-mode" type="button" class="font-bold underline hover:no-underline shrink-0 cursor-pointer">
+        Switch to Practice Mode
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main id="app-main" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Rendered dynamically by JS -->
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-slate-200/80 dark:border-slate-800/80 py-6 mt-12 bg-white/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+      <p>Borg El Arab Technological University • Faculty of Industry & Energy Technology • IT Department (4th Year)</p>
+      <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5 truncate">
+              <span class="font-semibold text-slate-800 dark:text-slate-200">Developer</span> YMS
+            </p>
+      <div class="flex items-center gap-4">
+        <span>Mobile Programming II (1st Term 2026/2027)</span>
+        <button id="btn-reset-all" type="button" class="text-rose-600 dark:text-rose-400 hover:underline font-semibold cursor-pointer">
+          Reset Saved Progress
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ==================== COMPLETE COURSE DATA & APPLICATION LOGIC ==================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // =========================================================================
+      // 1. ASSIGNMENT 1 DATA (ALL 60 VERBATIM A/B MCQs ACROSS 7 TOPICS)
+      // =========================================================================
+      const ASSIGNMENT_1_TOPICS = [
+        'Topic 1: Firebase and Its Services',
+        'Topic 2: Backend-as-a-Service (BaaS)',
+        'Topic 3: Authentication',
+        'Topic 4: Firebase AI Logic',
+        'Topic 5: API Basics and HTTP Methods',
+        'Topic 6: API Keys and Security',
+        'Topic 7: HTTPS Requests in Flutter'
+      ];
+
+      const ASSIGNMENT_1_QUESTIONS = [
+        // Topic 1: Firebase and Its Services (Q1–Q8)
+        {
+          id: 'a1-q1', num: 1, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'A developer wants users to access their saved information from different devices. Which service is suitable?',
+          options: ['Firebase Realtime Database', 'Firebase Hosting'],
+          correct: 0,
+          explanation: 'Firebase Realtime Database (and Cloud Firestore) stores and syncs user data across multiple devices in real time, whereas Firebase Hosting serves static web assets.'
+        },
+        {
+          id: 'a1-q2', num: 2, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'An app needs to store profile pictures online. Which service is the best choice?',
+          options: ['Firebase Authentication', 'Cloud Storage for Firebase'],
+          correct: 1,
+          explanation: 'Cloud Storage for Firebase is built to store and serve binary user-generated files such as profile pictures, audio, and videos.'
+        },
+        {
+          id: 'a1-q3', num: 3, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'A developer wants to send notifications when an app is closed. Which service can help?',
+          options: ['Firebase Cloud Messaging', 'Firebase Hosting'],
+          correct: 0,
+          explanation: 'Firebase Cloud Messaging (FCM) delivers push notifications and data messages to client apps even when running in the background or closed.'
+        },
+        {
+          id: 'a1-q4', num: 4, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'A team wants to understand how many people use its app. Which service is suitable?',
+          options: ['Firebase Storage', 'Firebase Analytics'],
+          correct: 1,
+          explanation: 'Firebase Analytics provides free, unlimited reporting on active users, user engagement, and app usage behavior.'
+        },
+        {
+          id: 'a1-q5', num: 5, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'An app crashes, and the development team wants to investigate the cause. Which service can help?',
+          options: ['Firebase Crashlytics', 'Firebase Hosting'],
+          correct: 0,
+          explanation: 'Firebase Crashlytics is a lightweight, real-time crash reporter that tracks, prioritizes, and helps fix stability issues.'
+        },
+        {
+          id: 'a1-q6', num: 6, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'Does Firebase automatically create every screen and feature of a Flutter app?',
+          options: ['Yes, Firebase creates the complete app', 'No, developers must still build the app'],
+          correct: 1,
+          explanation: 'Firebase provides ready-made backend cloud services, while developers still design and build the Flutter frontend screens and app logic.'
+        },
+        {
+          id: 'a1-q7', num: 7, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'A developer needs to publish a website using Firebase. Which service should be used?',
+          options: ['Firebase Realtime Database', 'Firebase Hosting'],
+          correct: 1,
+          explanation: 'Firebase Hosting provides fast and secure static and dynamic web hosting with SSL certificates.'
+        },
+        {
+          id: 'a1-q8', num: 8, topic: ASSIGNMENT_1_TOPICS[0],
+          q: 'Why might a developer choose Firebase instead of building every backend service from scratch?',
+          options: ['It provides ready-made backend services', 'It removes the need to write frontend code'],
+          correct: 0,
+          explanation: 'Firebase offers pre-built, scalable backend services (auth, databases, storage, messaging) that accelerate development.'
+        },
+
+        // Topic 2: Backend-as-a-Service (BaaS) (Q9–Q16)
+        {
+          id: 'a1-q9', num: 9, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'A small team needs a database and user login without building a complete backend server. Which approach is suitable?',
+          options: ['BaaS', 'Building every backend service from scratch'],
+          correct: 0,
+          explanation: 'Backend-as-a-Service (BaaS) supplies ready-made cloud databases, authentication, and APIs without managing custom servers.'
+        },
+        {
+          id: 'a1-q10', num: 10, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'What is the main purpose of BaaS?',
+          options: ['To design app screens automatically', 'To provide ready-made backend services'],
+          correct: 1,
+          explanation: 'BaaS abstracts server infrastructure and provides ready-made backend building blocks via SDKs and APIs.'
+        },
+        {
+          id: 'a1-q11', num: 11, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'A Flutter app uses a BaaS database. Does it still need to communicate with the service to access data?',
+          options: ['Yes, it must send requests through the available service or API', 'No, data appears automatically without communication'],
+          correct: 0,
+          explanation: 'The Flutter client still communicates over the network with the BaaS cloud endpoints using the provider’s SDK or REST API.'
+        },
+        {
+          id: 'a1-q12', num: 12, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'How can BaaS help a small development team?',
+          options: ['It removes the need to program the app', 'It reduces the amount of backend work'],
+          correct: 1,
+          explanation: 'BaaS minimizes backend boilerplate, server maintenance, and DevOps overhead so small teams can focus on product features.'
+        },
+        {
+          id: 'a1-q13', num: 13, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'Which statement correctly describes Firebase?',
+          options: ['Firebase is an example of a BaaS platform', 'BaaS is only a database feature inside Firebase'],
+          correct: 0,
+          explanation: 'Firebase is Google’s comprehensive Backend-as-a-Service (BaaS) platform offering multiple cloud services.'
+        },
+        {
+          id: 'a1-q14', num: 14, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'A company needs a feature that its BaaS provider does not offer. What can it do?',
+          options: ['Stop using programming languages', 'Build an additional service or use another solution'],
+          correct: 1,
+          explanation: 'Developers can extend BaaS with custom microservices (e.g., Flask/Cloud Functions) or integrate third-party APIs.'
+        },
+        {
+          id: 'a1-q15', num: 15, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'Does using BaaS guarantee that an application is completely secure?',
+          options: ['No, developers must configure security correctly', 'Yes, security is automatic and never requires attention'],
+          correct: 0,
+          explanation: 'Developers must properly configure Firebase Security Rules, authentication checks, and API key restrictions.'
+        },
+        {
+          id: 'a1-q16', num: 16, topic: ASSIGNMENT_1_TOPICS[1],
+          q: 'What is one possible disadvantage of depending heavily on a single BaaS provider?',
+          options: ['The app cannot have a user interface', 'Moving to another provider may require changes'],
+          correct: 1,
+          explanation: 'Vendor lock-in means migrating away from a proprietary BaaS SDK/database later may require significant refactoring.'
+        },
+
+        // Topic 3: Authentication (Q17–Q25)
+        {
+          id: 'a1-q17', num: 17, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'What is the main purpose of Firebase Authentication?',
+          options: ['Managing user registration and sign-in', 'Hosting images and videos only'],
+          correct: 0,
+          explanation: 'Firebase Authentication handles user sign-up, login, session tokens, and identity providers.'
+        },
+        {
+          id: 'a1-q18', num: 18, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'A mobile app allows registration using an email and password. Which feature should the developer configure?',
+          options: ['Firebase Hosting', 'Firebase Authentication'],
+          correct: 1,
+          explanation: 'Email/Password sign-in is an authentication provider configured inside Firebase Authentication.'
+        },
+        {
+          id: 'a1-q19', num: 19, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'An app sends a verification code to a user\'s phone during sign-in. Which method is being used?',
+          options: ['Phone authentication with OTP verification', 'Database authentication using product records'],
+          correct: 0,
+          explanation: 'Phone authentication verifies user identity via an SMS One-Time Password (OTP).'
+        },
+        {
+          id: 'a1-q20', num: 20, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'A developer wants users to sign in with their Google accounts. What is required?',
+          options: ['Firebase Hosting only', 'Firebase Authentication with Google sign-in'],
+          correct: 1,
+          explanation: 'Google Sign-In must be enabled as a federated identity provider in Firebase Authentication.'
+        },
+        {
+          id: 'a1-q21', num: 21, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'Does signing in automatically give a user permission to read every database record?',
+          options: ['Yes, all signed-in users can access every record', 'No, database security rules must control access'],
+          correct: 1,
+          explanation: 'Authentication only verifies identity; Authorization (via security rules) controls which records a user may read or write.'
+        },
+        {
+          id: 'a1-q22', num: 22, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'An app remembers that a user has already signed in. What is the main benefit?',
+          options: ['A more convenient sign-in experience', 'The app no longer needs to protect user data'],
+          correct: 0,
+          explanation: 'Persisting authentication sessions avoids forcing users to re-enter credentials every time they open the app.'
+        },
+        {
+          id: 'a1-q23', num: 23, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'Why should an application avoid storing plain-text passwords in its own database?',
+          options: ['Attackers could read them if the database is exposed', 'They make buttons load slowly'],
+          correct: 0,
+          explanation: 'Passwords must always be cryptographically hashed so a database breach does not expose readable user passwords.'
+        },
+        {
+          id: 'a1-q24', num: 24, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'Which group contains three common authentication methods?',
+          options: ['GET, POST, and DELETE', 'Email/password, social sign-in, and phone authentication'],
+          correct: 1,
+          explanation: 'GET, POST, and DELETE are HTTP methods, whereas email/password, social providers, and phone OTP are authentication methods.'
+        },
+        {
+          id: 'a1-q25', num: 25, topic: ASSIGNMENT_1_TOPICS[2],
+          q: 'An application has many registered users. What is one advantage of Firebase Authentication?',
+          options: ['It helps manage user authentication without building the complete system from scratch', 'It guarantees that security problems can never occur'],
+          correct: 0,
+          explanation: 'Firebase Authentication scales automatically and provides battle-tested token management and password recovery flows.'
+        },
+
+        // Topic 4: Firebase AI Logic (Q26–Q38)
+        {
+          id: 'a1-q26', num: 26, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A developer wants to add an AI chatbot to a Flutter application. Which tool is relevant?',
+          options: ['Firebase Hosting only', 'Firebase AI Logic'],
+          correct: 1,
+          explanation: 'Firebase AI Logic provides the client SDK bridge to connect Flutter apps securely with Gemini generative AI models.'
+        },
+        {
+          id: 'a1-q27', num: 27, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A user enters, "Explain photosynthesis in simple words." What is this text called when sent to an AI model?',
+          options: ['A prompt', 'A database rule'],
+          correct: 0,
+          explanation: 'The input instruction or query sent to a generative AI model is called a prompt.'
+        },
+        {
+          id: 'a1-q28', num: 28, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'What is the main role of Firebase AI Logic in a Flutter application?',
+          options: ['To replace Flutter\'s user interface', 'To help integrate generative AI models into the application'],
+          correct: 1,
+          explanation: 'Firebase AI Logic acts as a managed, secure bridge connecting Flutter apps to supported Gemini AI models.'
+        },
+        {
+          id: 'a1-q29', num: 29, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A developer wants an AI feature to summarize students\' notes. Which task is suitable for a generative AI model?',
+          options: ['Generating a summary from the supplied text', 'Automatically repairing the phone\'s hardware'],
+          correct: 0,
+          explanation: 'Text summarization, drafting, and Q&A are core capabilities of generative AI language models.'
+        },
+        {
+          id: 'a1-q30', num: 30, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'An AI model produces an answer containing a false fact. What should the developer understand?',
+          options: ['AI answers are always correct if they sound convincing', 'AI answers can contain mistakes and need evaluation'],
+          correct: 1,
+          explanation: 'Generative AI models can hallucinate inaccurate details, so outputs require verification and evaluation.'
+        },
+        {
+          id: 'a1-q31', num: 31, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A developer sends private user information to an AI model without a clear reason. What is the main concern?',
+          options: ['User privacy and data protection', 'The app icon\'s size'],
+          correct: 0,
+          explanation: 'Minimizing unnecessary personal data sent to external AI services is critical for user privacy and data protection.'
+        },
+        {
+          id: 'a1-q32', num: 32, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A Flutter application needs AI responses in a format its code can process reliably. What should the developer request?',
+          options: ['An answer with no formatting instructions', 'A structured format such as JSON'],
+          correct: 1,
+          explanation: 'Requesting structured JSON output lets Dart parse fields predictably with jsonDecode() into model classes.'
+        },
+        {
+          id: 'a1-q33', num: 33, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'Why should an AI feature be tested before release?',
+          options: ['To check answer quality, errors, and user experience', 'To guarantee that the feature will never need an internet connection'],
+          correct: 0,
+          explanation: 'Testing verifies prompt reliability, loading/error states, edge cases, and response quality before users rely on it.'
+        },
+        {
+          id: 'a1-q34', num: 34, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A developer wants faster responses for a simple mobile chatbot. Which model from the lecture is designed for speed?',
+          options: ['Gemini 2.5 Pro', 'Gemini 2.5 Flash'],
+          correct: 1,
+          explanation: 'Gemini 2.5 Flash is optimized for low-latency, cost-efficient tasks like chat and short summaries, while Pro handles deeper reasoning.'
+        },
+        {
+          id: 'a1-q35', num: 35, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'An AI feature receives too many requests and becomes expensive. What is a sensible response?',
+          options: ['Add usage limits and monitor costs', 'Allow unlimited requests without monitoring usage'],
+          correct: 0,
+          explanation: 'Rate limiting, quota caps, App Check, and billing alerts prevent unexpected AI API spikes.'
+        },
+        {
+          id: 'a1-q36', num: 36, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'A developer wants to build an AI assistant in Flutter. Which package is used in the lecture to integrate Firebase AI?',
+          options: ['firebase_ai', 'firebase_hosting'],
+          correct: 0,
+          explanation: 'The firebase_ai Flutter package integrates Firebase AI Logic and Gemini models into Flutter applications.'
+        },
+        {
+          id: 'a1-q37', num: 37, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'Why should an application validate an AI prompt before sending it?',
+          options: ['To guarantee every AI response is correct', 'To prevent empty input from generating unnecessary requests'],
+          correct: 1,
+          explanation: 'Validating non-empty input prevents wasted API calls, latency, and unnecessary billing costs.'
+        },
+        {
+          id: 'a1-q38', num: 38, topic: ASSIGNMENT_1_TOPICS[3],
+          q: 'An AI request fails because the internet connection is lost. What should the app do?',
+          options: ['Handle the error and show a useful message', 'Display a success message even though no response arrived'],
+          correct: 0,
+          explanation: 'Proper try-catch error handling prevents crashes and informs the user clearly about connectivity failures.'
+        },
+
+        // Topic 5: API Basics and HTTP Methods (Q39–Q50)
+        {
+          id: 'a1-q39', num: 39, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'What does API stand for?',
+          options: ['Application Programming Interface', 'Application Process Integration'],
+          correct: 0,
+          explanation: 'API stands for Application Programming Interface.'
+        },
+        {
+          id: 'a1-q40', num: 40, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'What is the main purpose of an API?',
+          options: ['To design the user interface', 'To allow software systems to communicate'],
+          correct: 1,
+          explanation: 'An API defines rules and protocols enabling two software systems (such as a Flutter app and a Flask server) to exchange data.'
+        },
+        {
+          id: 'a1-q41', num: 41, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'A shopping app uses an online payment service. How can it communicate with that service?',
+          options: ['Through an API', 'Through an APK file alone'],
+          correct: 0,
+          explanation: 'Payment gateways (like Stripe or PayPal) expose APIs that client/server apps call to process transactions.'
+        },
+        {
+          id: 'a1-q42', num: 42, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'An app needs to display a list of products from a server. Which HTTP method is usually suitable?',
+          options: ['POST', 'GET'],
+          correct: 1,
+          explanation: 'GET is used to retrieve/read existing resources from a server without modifying them.'
+        },
+        {
+          id: 'a1-q43', num: 43, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'A user submits a new comment to a server. Which HTTP method is commonly used?',
+          options: ['POST', 'GET'],
+          correct: 0,
+          explanation: 'POST sends new data to the server to create a new resource (such as a new comment or user).'
+        },
+        {
+          id: 'a1-q44', num: 44, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'A developer needs to replace an entire existing product record. Which method is commonly used?',
+          options: ['PATCH', 'PUT'],
+          correct: 1,
+          explanation: 'PUT replaces an entire existing resource with the newly supplied payload.'
+        },
+        {
+          id: 'a1-q45', num: 45, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'A user changes only a product\'s price and leaves its other details unchanged. Which method is most suitable?',
+          options: ['PATCH', 'PUT'],
+          correct: 0,
+          explanation: 'PATCH applies partial updates to specific fields of a resource without resending the whole record.'
+        },
+        {
+          id: 'a1-q46', num: 46, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'A user deletes a saved comment. Which HTTP method is commonly used?',
+          options: ['POST', 'DELETE'],
+          correct: 1,
+          explanation: 'DELETE removes a specified resource from the server.'
+        },
+        {
+          id: 'a1-q47', num: 47, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'What is the common difference between PUT and PATCH?',
+          options: ['PUT usually replaces a resource, while PATCH changes part of it', 'PUT reads data, while PATCH deletes data'],
+          correct: 0,
+          explanation: 'PUT performs a full replacement of a resource, whereas PATCH updates only selected fields.'
+        },
+        {
+          id: 'a1-q48', num: 48, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'A Flutter developer already uses the HTTP package. Must they also use Dio to make API requests?',
+          options: ['Yes, both packages are always required', 'No, either package can be used'],
+          correct: 1,
+          explanation: 'Both http and Dio perform HTTP networking in Flutter; developers choose whichever best fits project complexity.'
+        },
+        {
+          id: 'a1-q49', num: 49, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'An API returns status code 404. What does this usually mean?',
+          options: ['The requested resource was not found', 'The request was definitely successful'],
+          correct: 0,
+          explanation: 'HTTP 404 Not Found indicates the server could not find the requested endpoint or resource.'
+        },
+        {
+          id: 'a1-q50', num: 50, topic: ASSIGNMENT_1_TOPICS[4],
+          q: 'An API returns JSON data. Why is JSON useful?',
+          options: ['It automatically creates application screens', 'It provides a structured way to exchange data'],
+          correct: 1,
+          explanation: 'JSON is a lightweight, human-readable key-value format that is easy to serialize and parse across platforms.'
+        },
+
+        // Topic 6: API Keys and Security (Q51–Q56)
+        {
+          id: 'a1-q51', num: 51, topic: ASSIGNMENT_1_TOPICS[5],
+          q: 'An API service requires a key with each request. What is one common purpose of the key?',
+          options: ['To help identify the application or control access', 'To replace all network security'],
+          correct: 0,
+          explanation: 'API keys identify the calling project/application and enforce quotas or access permissions.'
+        },
+        {
+          id: 'a1-q52', num: 52, topic: ASSIGNMENT_1_TOPICS[5],
+          q: 'A developer accidentally publishes a sensitive API key in a public repository. What is the main risk?',
+          options: ['The app\'s text becomes smaller', 'Other people may copy and misuse the key'],
+          correct: 1,
+          explanation: 'Exposed keys in public Git repositories are quickly scraped and abused, causing quota theft or unauthorized access.'
+        },
+        {
+          id: 'a1-q53', num: 53, topic: ASSIGNMENT_1_TOPICS[5],
+          q: 'A service allows an API key to be restricted to particular services. Why is this useful?',
+          options: ['It can limit how the key is used if exposed', 'It makes the key impossible to steal'],
+          correct: 0,
+          explanation: 'Restricting keys by API scope, package name, or IP minimizes blast radius if the key is ever leaked.'
+        },
+        {
+          id: 'a1-q54', num: 54, topic: ASSIGNMENT_1_TOPICS[5],
+          q: 'A developer discovers that a secret API key has been shared publicly. What should they do?',
+          options: ['Leave the key unchanged', 'Replace or disable the key and check for misuse'],
+          correct: 1,
+          explanation: 'Compromised credentials must be immediately revoked/rotated and audited for unauthorized usage.'
+        },
+        {
+          id: 'a1-q55', num: 55, topic: ASSIGNMENT_1_TOPICS[5],
+          q: 'Can someone potentially extract a key embedded in a distributed mobile app?',
+          options: ['Yes, keys included in an app may be extracted', 'No, application code can never be examined'],
+          correct: 0,
+          explanation: 'Compiled APK/IPA binaries can be decompiled or inspected, so hardcoded secrets in client apps are never safe.'
+        },
+        {
+          id: 'a1-q56', num: 56, topic: ASSIGNMENT_1_TOPICS[5],
+          q: 'Where should a sensitive secret key used for server-side requests normally be kept?',
+          options: ['In a public file inside the mobile app', 'In a secure server environment'],
+          correct: 1,
+          explanation: 'Sensitive secrets belong on a controlled backend server (e.g., via environment variables), never inside client binaries.'
+        },
+
+        // Topic 7: HTTPS Requests in Flutter (Q57–Q60)
+        {
+          id: 'a1-q57', num: 57, topic: ASSIGNMENT_1_TOPICS[6],
+          q: 'Why should an app use HTTPS instead of plain HTTP when the service supports it?',
+          options: ['HTTPS guarantees that all API responses are correct', 'HTTPS protects data while it travels between the app and server'],
+          correct: 1,
+          explanation: 'HTTPS uses TLS encryption to protect data in transit against eavesdropping and tampering.'
+        },
+        {
+          id: 'a1-q58', num: 58, topic: ASSIGNMENT_1_TOPICS[6],
+          q: 'A Flutter app receives JSON text from an API. What should the developer commonly do before using its values as Dart data?',
+          options: ['Decode the JSON', 'Convert the response into an image'],
+          correct: 0,
+          explanation: 'jsonDecode() from dart:convert parses a raw JSON String into Dart Map/List objects.'
+        },
+        {
+          id: 'a1-q59', num: 59, topic: ASSIGNMENT_1_TOPICS[6],
+          q: 'A Flutter app receives status code 500 from an API. What does this usually indicate?',
+          options: ['The request was definitely successful', 'A server-side error occurred'],
+          correct: 1,
+          explanation: 'HTTP 500 (Internal Server Error) means an unhandled failure occurred on the backend server.'
+        },
+        {
+          id: 'a1-q60', num: 60, topic: ASSIGNMENT_1_TOPICS[6],
+          q: 'A Flutter app needs to call an external AI service using a sensitive secret key. Which design is generally safer?',
+          options: ['Put the secret key directly in the app and hide its text on screen', 'Send the request through a secure backend that protects the key'],
+          correct: 1,
+          explanation: 'Routing requests through a secure backend proxy keeps private API keys completely off the client device.'
+        }
+      ];
+
+      // =========================================================================
+      // 2. TUTORIAL 3 DATA (ALL 89 VERBATIM QUESTIONS: 40 MCQs + 20 BLANKS + 29 T/F)
+      // =========================================================================
+      const TUTORIAL_3_SEC_A = [
+        {
+          id: 't3a-q1', num: 1,
+          q: 'What is the main role of the frontend in a mobile app?',
+          options: ['Show screens and collect user actions', 'Store all records permanently', 'Run the server', 'Encrypt the database'],
+          correct: 0,
+          explanation: 'The frontend is the client-side UI layer that displays screens, buttons, and forms and collects user interactions.'
+        },
+        {
+          id: 't3a-q2', num: 2,
+          q: 'In a Flutter-Flask app, which part usually acts as the client?',
+          options: ['SQLite', 'Flutter app', 'Flask server', 'HTTP status code'],
+          correct: 1,
+          explanation: 'In client-server architecture, the Flutter mobile app acts as the client sending HTTP requests to the Flask backend server.'
+        },
+        {
+          id: 't3a-q3', num: 3,
+          q: 'What does an API allow?',
+          options: ['Only images to be edited', 'Software systems to communicate', 'Running hardware diagnostics only', 'A database to delete itself'],
+          correct: 1,
+          explanation: 'An API (Application Programming Interface) is a set of rules enabling two software systems to communicate and exchange data.'
+        },
+        {
+          id: 't3a-q4', num: 4,
+          q: 'What does HTTP status code 200 usually mean?',
+          options: ['Request succeeded', 'Server error', 'User is unauthorized', 'Network is disconnected'],
+          correct: 0,
+          explanation: 'HTTP 200 OK indicates that the HTTP request succeeded.'
+        },
+        {
+          id: 't3a-q5', num: 5,
+          q: 'What does HTTP status code 500 usually indicate?',
+          options: ['Successful request', 'A server-side error', 'A new user account', 'A JSON field'],
+          correct: 1,
+          explanation: 'HTTP 500 Internal Server Error indicates an error occurred on the backend server.'
+        },
+        {
+          id: 't3a-q6', num: 6,
+          q: 'What is JSON mainly used for?',
+          options: ['Designing Flutter layouts', 'Sending structured data as key-value pairs', 'Replacing every database', 'Running Python code on a phone'],
+          correct: 1,
+          explanation: 'JSON (JavaScript Object Notation) is a readable text format for exchanging structured key-value data.'
+        },
+        {
+          id: 't3a-q7', num: 7,
+          q: 'What does jsonDecode() do in Dart?',
+          options: ['Turns JSON text into Dart data', 'Encrypts a password', 'Creates a Flask route', 'Opens Firebase Console'],
+          correct: 0,
+          explanation: 'jsonDecode() converts a JSON-formatted String into Dart Map or List structures.'
+        },
+        {
+          id: 't3a-q8', num: 8,
+          q: 'Why might a developer create a Dart model class?',
+          options: ['To make the phone faster', 'To give received data a clear structure', 'To replace all API requests', 'To hide all errors'],
+          correct: 1,
+          explanation: 'A Dart model class gives decoded JSON data strong typing, clear structure, and meaningful field names.'
+        },
+        {
+          id: 't3a-q9', num: 9,
+          q: 'What is a stateless request?',
+          options: ['A request that never gets a response', 'A request that carries the information needed to handle it', 'A request that can only send images', 'A request that stores all user data in the widget'],
+          correct: 1,
+          explanation: 'In RESTful stateless communication, each request carries all necessary context/tokens rather than relying on server session memory.'
+        },
+        {
+          id: 't3a-q10', num: 10,
+          q: 'What does HTTPS/TLS help do?',
+          options: ['Encrypt data while it travels', 'Guarantee the server has no bugs', 'Replace authentication', 'Stop every possible attack'],
+          correct: 0,
+          explanation: 'HTTPS/TLS encrypts traffic in transit between client and server, though it does not guarantee bug-free server logic.'
+        },
+        {
+          id: 't3a-q11', num: 11,
+          q: 'Why is asynchronous code useful for network requests?',
+          options: ['It prevents all errors', 'It lets the app wait without freezing the screen', 'It removes the need for a server', 'It automatically saves every response'],
+          correct: 1,
+          explanation: 'async/await lets Dart wait for slow network I/O without blocking the UI thread.'
+        },
+        {
+          id: 't3a-q12', num: 12,
+          q: 'What is a good way to handle a failed network request?',
+          options: ['Ignore it', 'Close the app immediately', 'Use try-catch and show a clear message', 'Print the user\'s password'],
+          correct: 2,
+          explanation: 'Wrapping network calls in try-catch prevents unhandled crashes and displays helpful feedback to the user.'
+        },
+        {
+          id: 't3a-q13', num: 13,
+          q: 'Why can a send button be disabled while a request is running?',
+          options: ['To prevent duplicate requests', 'To delete the API', 'To stop all future requests', 'To convert JSON into a model'],
+          correct: 0,
+          explanation: 'Disabling the submit/send button during a loading state avoids accidental double submissions.'
+        },
+        {
+          id: 't3a-q14', num: 14,
+          q: 'Which statement about http and Dio is true?',
+          options: ['Only http can send requests', 'Both send requests, while Dio has more built-in tools for complex tasks', 'Dio is a database', 'http is a Python framework'],
+          correct: 1,
+          explanation: 'Both http and Dio make HTTP calls, while Dio adds BaseOptions, interceptors, FormData uploads, and cancel tokens.'
+        },
+        {
+          id: 't3a-q15', num: 15,
+          q: 'What can a Dio interceptor do?',
+          options: ['Inspect or change requests and responses', 'Replace the phone\'s operating system', 'Store every password as plain text', 'Create a new Flutter screen automatically'],
+          correct: 0,
+          explanation: 'Interceptors hook into request/response/error lifecycles to attach auth headers, log traffic, or transform responses.'
+        },
+        {
+          id: 't3a-q16', num: 16,
+          q: 'What is FormData useful for?',
+          options: ['Sending files and form fields', 'Managing BLOC events only', 'Encrypting the whole database', 'Creating a user UID'],
+          correct: 0,
+          explanation: 'Dio FormData simplifies multipart/form-data requests for uploading files alongside key-value fields.'
+        },
+        {
+          id: 't3a-q17', num: 17,
+          q: 'What can a Dio cancel token do?',
+          options: ['Cancel an active request', 'Register a Firebase project', 'Decode a JSON string', 'Create a SQLite table automatically'],
+          correct: 0,
+          explanation: 'CancelToken aborts an in-flight Dio request, such as when a user navigates away from a screen.'
+        },
+        {
+          id: 't3a-q18', num: 18,
+          q: 'What is Flask in this material?',
+          options: ['A Flutter widget', 'A lightweight Python web framework for APIs', 'A mobile database', 'An authentication provider'],
+          correct: 1,
+          explanation: 'Flask is a lightweight Python micro-framework used to build REST API endpoints and server logic.'
+        },
+        {
+          id: 't3a-q19', num: 19,
+          q: 'In Flask, what is a route?',
+          options: ['A URL and method connected to a request-handling function', 'A Dart data type', 'A user password', 'A loading indicator'],
+          correct: 0,
+          explanation: 'A Flask route binds a URL path and HTTP method(s) to a Python route handler function.'
+        },
+        {
+          id: 't3a-q20', num: 20,
+          q: 'What is business logic?',
+          options: ['Screen colors and fonts only', 'Rules that decide what an app is allowed to do', 'The name of a JSON library', 'A type of image file'],
+          correct: 1,
+          explanation: 'Business logic defines the domain rules, validations, and workflows governing application behavior.'
+        },
+        {
+          id: 't3a-q21', num: 21,
+          q: 'Which database is mentioned as an option for Flask records?',
+          options: ['SQLite', 'Flutter', 'Dio', 'Gemini'],
+          correct: 0,
+          explanation: 'Lecture 7 highlights SQLite as a lightweight relational database option for storing Flask records like users and grades.'
+        },
+        {
+          id: 't3a-q22', num: 22,
+          q: 'How should passwords be stored?',
+          options: ['As plain readable text', 'In a public Flutter file', 'Safely using password hashing', 'In a button label'],
+          correct: 2,
+          explanation: 'Passwords must be hashed using a secure one-way cryptographic hashing algorithm before database storage.'
+        },
+        {
+          id: 't3a-q23', num: 23,
+          q: 'What is the main purpose of separating UI, service, and repository responsibilities?',
+          options: ['Make the app harder to test', 'Keep code organized and easier to maintain and test', 'Remove the need for error handling', 'Prevent the app from using APIs'],
+          correct: 1,
+          explanation: 'Separation of concerns isolates presentation, business logic, and data access for clean testing and maintainability.'
+        },
+        {
+          id: 't3a-q24', num: 24,
+          q: 'In BLOC, what does the UI send to request an action?',
+          options: ['Event', 'Database', 'Route handler', 'TLS certificate'],
+          correct: 0,
+          explanation: 'In BLoC, user actions are dispatched as Events into the BLoC.'
+        },
+        {
+          id: 't3a-q25', num: 25,
+          q: 'In BLoC, what does the UI observe to know what to display?',
+          options: ['Password', 'State', 'HTTP method', 'Python environment'],
+          correct: 1,
+          explanation: 'The UI listens/builds based on emitted State objects (e.g., Loading, Loaded, Error).'
+        },
+        {
+          id: 't3a-q26', num: 26,
+          q: 'Which is an example of a state?',
+          options: ['Pressing Refresh', 'Tapping Send', 'Loading', 'Typing a prompt'],
+          correct: 2,
+          explanation: 'Loading (along with Initial, Loaded, Success, Error) represents a screen State, whereas button taps are Events.'
+        },
+        {
+          id: 't3a-q27', num: 27,
+          q: 'Which is an example of an event?',
+          options: ['The screen is in an error state', 'Data has loaded', 'Pressing Refresh', 'A response is displayed'],
+          correct: 2,
+          explanation: 'Pressing Refresh is a user action/event dispatched to trigger state updates.'
+        },
+        {
+          id: 't3a-q28', num: 28,
+          q: 'How does Cubit commonly change state compared with BLOC?',
+          options: ['Through direct method calls rather than a separate event class for every action', 'Only through SQL commands', 'By changing the operating system', 'By avoiding state completely'],
+          correct: 0,
+          explanation: 'Cubit simplifies BLoC by exposing direct methods (e.g., increment(), login()) that call emit(newState).'
+        },
+        {
+          id: 't3a-q29', num: 29,
+          q: 'What does unidirectional data flow mean?',
+          options: ['Data moves in one planned direction', 'Data can never be returned', 'The app has no UI', 'All data must be stored locally'],
+          correct: 0,
+          explanation: 'Unidirectional data flow means actions/events flow into logic, which emits new states downward to update the UI.'
+        },
+        {
+          id: 't3a-q30', num: 30,
+          q: 'What does BaaS stand for?',
+          options: ['Backend as a Service', 'Button as a Screen', 'Browser and Storage', 'Build an App Slowly'],
+          correct: 0,
+          explanation: 'BaaS stands for Backend as a Service.'
+        },
+        {
+          id: 't3a-q31', num: 31,
+          q: 'What is Firebase mainly described as providing?',
+          options: ['Ready-made cloud services for app features', 'Only screen design tools', 'A replacement for Dart', 'A local-only database that never connects online'],
+          correct: 0,
+          explanation: 'Firebase provides ready-made cloud backend services including Auth, Firestore, Storage, FCM, and AI Logic.'
+        },
+        {
+          id: 't3a-q32', num: 32,
+          q: 'What does a UID identify?',
+          options: ['A unique user account', 'An HTTP method', 'A Flask route', 'A loading animation'],
+          correct: 0,
+          explanation: 'UID stands for User ID—a unique identifier assigned to each registered user account.'
+        },
+        {
+          id: 't3a-q33', num: 33,
+          q: 'What is the difference between authentication and authorization?',
+          options: ['They mean exactly the same thing', 'Authentication checks identity; authorization controls allowed access', 'Authentication stores images; authorization decodes JSON', 'Authorization checks identity; authentication controls permissions'],
+          correct: 1,
+          explanation: 'Authentication verifies who the user is; authorization determines what resources/actions that user is permitted to access.'
+        },
+        {
+          id: 't3a-q34', num: 34,
+          q: 'What is Firebase AI Logic used for in the described flow?',
+          options: ['Helping a Flutter app call supported Gemini models', 'Replacing every Flutter widget', 'Storing passwords as plain text', 'Turning a phone into a database server'],
+          correct: 0,
+          explanation: 'Firebase AI Logic acts as the managed connection path allowing Flutter apps to call supported Gemini models.'
+        },
+        {
+          id: 't3a-q35', num: 35,
+          q: 'What is Gemini?',
+          options: ['An AI model that processes a prompt and generates a response', 'A Python virtual environment', 'A Dio interceptor', 'A status code'],
+          correct: 0,
+          explanation: 'Gemini is Google’s generative AI model family that processes prompts and generates responses.'
+        },
+        {
+          id: 't3a-q36', num: 36,
+          q: 'What does multimodal AI mean?',
+          options: ['It can work with more than one input type when supported', 'It only accepts numbers', 'It only works offline', 'It is another name for SQLite'],
+          correct: 0,
+          explanation: 'Multimodal AI models can process multiple input modalities such as text, images, audio, and PDFs.'
+        },
+        {
+          id: 't3a-q37', num: 37,
+          q: 'Why should secret API keys not be placed directly in Flutter source code?',
+          options: ['Published apps can be inspected and secrets may be extracted', 'Flutter cannot display text', 'JSON cannot contain keys', 'It makes all APIs stop working'],
+          correct: 0,
+          explanation: 'Published mobile app packages can be reverse-engineered to extract hardcoded secret keys.'
+        },
+        {
+          id: 't3a-q38', num: 38,
+          q: 'What is the purpose of Firebase App Check and related controls?',
+          options: ['Help protect services from requests that do not come from trusted app instances when configured', 'Guarantee that every user is honest', 'Replace all authorization rules', 'Automatically fix every server bug'],
+          correct: 0,
+          explanation: 'Firebase App Check attests that incoming traffic originates from your genuine app binary on an authentic device.'
+        },
+        {
+          id: 't3a-q39', num: 39,
+          q: 'Which UI elements are useful in a simple AI screen?',
+          options: ['Text input, send button, loading indicator, answer area, and error message', 'Only a blank screen', 'Only a database table', 'Only a password field'],
+          correct: 0,
+          explanation: 'A complete AI screen includes a prompt text field, send button, loading indicator, response display area, and error feedback.'
+        },
+        {
+          id: 't3a-q40', num: 40,
+          q: 'Where should AI/network request code preferably be placed?',
+          options: ['Directly inside every UI widget', 'In a service class separate from UI code', 'In a button\'s visible text', 'In a password field'],
+          correct: 1,
+          explanation: 'Keeping AI and HTTP calls inside a dedicated service/repository layer keeps UI widgets clean and testable.'
+        }
+      ];
+
+      const TUTORIAL_3_SEC_B = [
+        { id: 't3b-1', num: 1, before: 'The part of an app that users see and touch is the', after: 'layer.', answer: 'frontend', accepted: ['frontend', 'front-end', 'ui', 'presentation'] },
+        { id: 't3b-2', num: 2, before: 'The server-side part that handles requests and rules is the', after: '.', answer: 'backend', accepted: ['backend', 'back-end', 'server'] },
+        { id: 't3b-3', num: 3, before: 'An', after: 'lets two software systems communicate.', answer: 'API', accepted: ['api', 'application programming interface'] },
+        { id: 't3b-4', num: 4, before: 'JSON stores structured data as', after: '-value pairs.', answer: 'key', accepted: ['key', 'keys'] },
+        { id: 't3b-5', num: 5, before: 'In Dart,', after: '() converts JSON text into Dart data.', answer: 'jsonDecode', accepted: ['jsondecode', 'jsondecode()'] },
+        { id: 't3b-6', num: 6, before: 'HTTP status code', after: 'usually means a request succeeded.', answer: '200', accepted: ['200', '200 ok'] },
+        { id: 't3b-7', num: 7, before: 'HTTP status code', after: 'commonly indicates a server error.', answer: '500', accepted: ['500', '500 internal server error'] },
+        { id: 't3b-8', num: 8, before: 'Asynchronous code helps a mobile app avoid', after: 'while waiting for online work.', answer: 'freezing', accepted: ['freezing', 'freezing the screen', 'blocking', 'blocking the ui'] },
+        { id: 't3b-9', num: 9, before: 'The Dart code pattern commonly used to handle exceptions is', after: '.', answer: 'try-catch', accepted: ['try-catch', 'try catch', 'try/catch'] },
+        { id: 't3b-10', num: 10, before: 'Dio', after: 'can inspect or change requests and responses.', answer: 'interceptors', accepted: ['interceptors', 'interceptor'] },
+        { id: 't3b-11', num: 11, before: 'In Flask, a URL and method connected to a function is called a', after: '.', answer: 'route', accepted: ['route'] },
+        { id: 't3b-12', num: 12, before: '', after: 'is the lightweight Python web framework discussed for building API endpoints.', answer: 'Flask', accepted: ['flask'] },
+        { id: 't3b-13', num: 13, before: 'The lecture names', after: 'as one database option for storing records.', answer: 'SQLite', accepted: ['sqlite'] },
+        { id: 't3b-14', num: 14, before: 'Passwords should be stored using password', after: ', not as plain readable text.', answer: 'hashing', accepted: ['hashing', 'hash'] },
+        { id: 't3b-15', num: 15, before: 'In BLoC, an action or request is represented by an', after: '.', answer: 'event', accepted: ['event'] },
+        { id: 't3b-16', num: 16, before: 'In BLoC, the current condition of the screen is represented by a', after: '.', answer: 'state', accepted: ['state'] },
+        { id: 't3b-17', num: 17, before: 'Cubit commonly changes state through direct', after: 'calls.', answer: 'method', accepted: ['method', 'methods', 'function'] },
+        { id: 't3b-18', num: 18, before: 'BaaS means Backend as a', after: '.', answer: 'Service', accepted: ['service'] },
+        { id: 't3b-19', num: 19, before: 'A unique identifier for a Firebase user account is called a', after: '.', answer: 'UID', accepted: ['uid', 'user id'] },
+        { id: 't3b-20', num: 20, before: 'The AI model in Firebase that generates a response to a prompt is', after: '.', answer: 'Gemini', accepted: ['gemini'] }
+      ];
+
+      const TUTORIAL_3_SEC_C = [
+        { id: 't3c-1', num: 1, statement: 'Flutter usually acts as the client in a Flutter-Flask app.', isTrue: true, correction: '' },
+        { id: 't3c-2', num: 2, statement: 'A database and an API mean exactly the same thing.', isTrue: false, correction: 'False — A database is where information is saved for later use, whereas an API is a set of rules that lets two software systems communicate.' },
+        { id: 't3c-3', num: 3, statement: 'HTTP status code 200 usually indicates success.', isTrue: true, correction: '' },
+        { id: 't3c-4', num: 4, statement: 'HTTP status code 500 usually indicates a server-side error.', isTrue: true, correction: '' },
+        { id: 't3c-5', num: 5, statement: 'JSON is a readable format for structured key-value data.', isTrue: true, correction: '' },
+        { id: 't3c-6', num: 6, statement: 'jsonDecode() converts Dart data into a JSON text string.', isTrue: false, correction: 'False — jsonDecode() converts JSON text into Dart data (whereas jsonEncode() converts Dart data into a JSON text string).' },
+        { id: 't3c-7', num: 7, statement: 'HTTPS/TLS guarantees that a server has no bugs.', isTrue: false, correction: 'False — HTTPS/TLS encrypts data while it travels between the app and server, but it does not guarantee that the server has no bugs.' },
+        { id: 't3c-8', num: 8, statement: 'Asynchronous code can help the app wait for network work without freezing the screen.', isTrue: true, correction: '' },
+        { id: 't3c-9', num: 9, statement: 'A developer should ignore network errors so the app looks simpler.', isTrue: false, correction: 'False — A developer should handle network errors using try-catch and display a clear, helpful message to the user.' },
+        { id: 't3c-10', num: 10, statement: 'The http package and Dio can both send network requests.', isTrue: true, correction: '' },
+        { id: 't3c-11', num: 11, statement: 'A Dio cancel token can be used to stop an active request.', isTrue: true, correction: '' },
+        { id: 't3c-12', num: 12, statement: 'Flask is a lightweight Python web framework.', isTrue: true, correction: '' },
+        { id: 't3c-13', num: 13, statement: 'A Flask route connects a URL and method to a function that handles the request.', isTrue: true, correction: '' },
+        { id: 't3c-14', num: 14, statement: 'Passwords should be saved as plain readable text.', isTrue: false, correction: 'False — Passwords must be stored safely using password hashing, never as plain readable text.' },
+        { id: 't3c-15', num: 15, statement: 'Separating UI, service, and repository code can make an app easier to test and maintain.', isTrue: true, correction: '' },
+        { id: 't3c-16', num: 16, statement: 'In BLOC, an event describes the current screen state.', isTrue: false, correction: 'False — In BLoC, an event represents an action or request from the user/app, while a state describes what the screen should show.' },
+        { id: 't3c-17', num: 17, statement: 'In BLoC, loading, loaded, and error are examples of states.', isTrue: true, correction: '' },
+        { id: 't3c-18', num: 18, statement: 'Cubit requires a separate event class for every action in the same way as BLOC.', isTrue: false, correction: 'False — Cubit changes state through direct method calls rather than requiring a separate event class for every action.' },
+        { id: 't3c-19', num: 19, statement: 'Firebase provides ready-made cloud services that apps can use.', isTrue: true, correction: '' },
+        { id: 't3c-20', num: 20, statement: 'Authentication decides what data a user is allowed to access, while authorization checks identity.', isTrue: false, correction: 'False — Authentication checks who a user is (identity), while authorization decides what that user is allowed to access.' },
+        { id: 't3c-21', num: 21, statement: 'A UID is a unique identifier for a user account.', isTrue: true, correction: '' },
+        { id: 't3c-22', num: 22, statement: 'Firebase AI Logic helps a Flutter app call supported Gemini models.', isTrue: true, correction: '' },
+        { id: 't3c-23', num: 23, statement: 'Multimodal AI can work with different input types when supported.', isTrue: true, correction: '' },
+        { id: 't3c-24', num: 24, statement: 'Secret API keys are safe to hardcode in a published Flutter app.', isTrue: false, correction: 'False — Secret API keys must never be hardcoded in a published Flutter app because the binary can be inspected and secrets extracted.' },
+        { id: 't3c-25', num: 25, statement: 'A loading indicator and an error message can improve the user experience during AI requests.', isTrue: true, correction: '' },
+        { id: 't3c-26', num: 26, statement: 'AI/network request code should always be placed directly inside UI widgets.', isTrue: false, correction: 'False — AI and network request code should be kept in a separate service/repository class rather than directly inside UI widgets.' },
+        { id: 't3c-27', num: 27, statement: 'Firebase App Check can help protect services from requests that do not come from trusted app instances when configured correctly.', isTrue: true, correction: '' },
+        { id: 't3c-28', num: 28, statement: 'A Python virtual environment helps keep one project\'s Python packages separate from other projects.', isTrue: true, correction: '' },
+        { id: 't3c-29', num: 29, statement: 'A repository can provide one clear place for business logic to request data from APIs, databases, or caches.', isTrue: true, correction: '' }
+      ];
+
+      // =========================================================================
+      // 3. APPLICATION STATE & PERSISTENCE
+      // =========================================================================
+      const STORAGE_KEY = 'batu_mp2_exam_portal_v1';
+
+      function loadState() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            return {
+              theme: parsed.theme || 'light',
+              studyMode: Boolean(parsed.studyMode),
+              a1Answers: parsed.a1Answers || {},
+              t3aAnswers: parsed.t3aAnswers || {},
+              t3bAnswers: parsed.t3bAnswers || {},
+              t3bChecked: parsed.t3bChecked || {},
+              t3cAnswers: parsed.t3cAnswers || {},
+            };
+          }
+        } catch (e) {
+          console.warn('Could not load saved state:', e);
+        }
+        return {
+          theme: 'light',
+          studyMode: false,
+          a1Answers: {},
+          t3aAnswers: {},
+          t3bAnswers: {},
+          t3bChecked: {},
+          t3cAnswers: {},
+        };
+      }
+
+      let state = loadState();
+      let activeTab = 'assignment1'; // 'assignment1' | 'tutorial3' | 'mockexam' | 'labs' | 'revision'
+      let a1TopicFilter = 'All Topics';
+      let t3SubSection = 'all'; // 'all' | 'secA' | 'secB' | 'secC'
+      let searchQuery = '';
+
+      // Mock Exam Runtime State
+      let mockExam = {
+        status: 'setup', // 'setup' | 'running' | 'finished'
+        count: 20,
+        minutes: 15,
+        source: 'all', // 'all' | 'a1' | 't3'
+        questions: [],
+        currentIndex: 0,
+        answers: {},
+        secondsLeft: 0,
+        timerId: null,
+      };
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          console.warn('Failed to save state:', e);
+        }
+      }
+
+      // =========================================================================
+      // 4. UTILITIES & UI HELPERS
+      // =========================================================================
+      function escapeHTML(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        const styles = {
+          success: 'bg-emerald-600 text-white border-emerald-500',
+          info: 'bg-slate-900 dark:bg-slate-800 text-white border-slate-700',
+          warning: 'bg-amber-600 text-white border-amber-500',
+        };
+        const icons = {
+          success: 'check-circle-2',
+          info: 'info',
+          warning: 'alert-circle',
+        };
+        toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border text-xs sm:text-sm font-medium animate-slide-up ${styles[type] || styles.info}`;
+        toast.innerHTML = `<i data-lucide="${icons[type] || 'info'}" class="w-4 h-4 shrink-0"></i><span>${escapeHTML(message)}</span>`;
+        container.appendChild(toast);
+        lucide.createIcons({ nodes: [toast] });
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(8px)';
+          toast.style.transition = 'all 0.2s ease';
+          setTimeout(() => toast.remove(), 220);
+        }, 2800);
+      }
+
+      function copyToClipboard(text, label = 'Code') {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast(`${label} copied to clipboard!`, 'success');
+        } catch (err) {
+          showToast('Unable to copy text automatically.', 'warning');
+        }
+        document.body.removeChild(textarea);
+      }
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        state.theme = theme;
+        saveState();
+      }
+
+      function syncStudyModeUI() {
+        const checkbox = document.getElementById('toggle-study-mode');
+        const banner = document.getElementById('study-mode-banner');
+        checkbox.checked = state.studyMode;
+        if (state.studyMode) {
+          banner.classList.remove('hidden');
+        } else {
+          banner.classList.add('hidden');
+        }
+      }
+
+      function updateGlobalProgress() {
+        const a1Done = Object.keys(state.a1Answers).length;
+        const t3aDone = Object.keys(state.t3aAnswers).length;
+        const t3bDone = Object.keys(state.t3bChecked).filter((k) => state.t3bChecked[k]).length;
+        const t3cDone = Object.keys(state.t3cAnswers).length;
+        const totalDone = a1Done + t3aDone + t3bDone + t3cDone;
+        document.getElementById('header-progress-text').textContent = `${totalDone} / 149`;
+      }
+
+      function setActiveTab(tab) {
+        activeTab = tab;
+        document.querySelectorAll('.main-tab-btn').forEach((btn) => {
+          const isSelected = btn.getAttribute('data-tab') === tab;
+          btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+          if (isSelected) {
+            btn.className = 'main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer bg-indigo-600 text-white shadow-sm shadow-indigo-500/20';
+          } else {
+            btn.className = 'main-tab-btn shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800';
+          }
+        });
+        renderMainView();
+      }
+
+      // =========================================================================
+      // 5. TAB 1: ASSIGNMENT 1 (60 MCQs ACROSS 7 TOPICS)
+      // =========================================================================
+      function renderAssignment1() {
+        const qLower = searchQuery.trim().toLowerCase();
+        const filtered = ASSIGNMENT_1_QUESTIONS.filter((item) => {
+          const matchTopic = a1TopicFilter === 'All Topics' || item.topic === a1TopicFilter;
+          if (!matchTopic) return false;
+          if (!qLower) return true;
+          return (
+            item.q.toLowerCase().includes(qLower) ||
+            item.options.some((o) => o.toLowerCase().includes(qLower)) ||
+            item.explanation.toLowerCase().includes(qLower) ||
+            `q${item.num}`.includes(qLower)
+          );
+        });
+
+        // Compute Assignment 1 Stats
+        const answeredCount = Object.keys(state.a1Answers).length;
+        let correctCount = 0;
+        ASSIGNMENT_1_QUESTIONS.forEach((q) => {
+          if (state.a1Answers[q.id] === q.correct) correctCount++;
+        });
+        const pct = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+
+        return `
+          <div class="space-y-6 animate-fade-in">
+            <!-- Assignment 1 Header & Grading Summary Card -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm">
+              <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                      Assignment 1 • 60 Questions
+                    </span>
+                    <span class="text-xs font-medium text-slate-500 dark:text-slate-400">
+                      Firebase, Auth, Firebase AI Logic, APIs, API Keys & HTTPS
+                    </span>
+                  </div>
+                  <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+                    Assignment 1: Interactive Practice & Verified Answer Key
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                    Click option A or B for instant grading and detailed explanations, or enable <strong>Study Key Mode</strong> in the header to view all 60 solved answers immediately.
+                  </p>
+                </div>
+
+                <!-- Live Score & Grade Summary Box -->
+                <div class="flex flex-wrap items-center gap-3 bg-slate-50 dark:bg-slate-800/70 p-4 rounded-2xl border border-slate-200/70 dark:border-slate-700/70 shrink-0">
+                  <div class="pr-3 border-r border-slate-200 dark:border-slate-700">
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Attempted</p>
+                    <p class="text-lg font-extrabold text-slate-900 dark:text-white">${answeredCount} <span class="text-xs font-normal text-slate-400">/ 60</span></p>
+                  </div>
+                  <div class="pr-3 border-r border-slate-200 dark:border-slate-700">
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Correct</p>
+                    <p class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">${correctCount} <span class="text-xs font-semibold">(${pct}%)</span></p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      id="btn-grade-a1"
+                      class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-colors cursor-pointer"
+                    >
+                      <i data-lucide="award" class="w-4 h-4"></i>
+                      <span>Grade Assignment 1</span>
+                    </button>
+                    <button
+                      type="button"
+                      id="btn-reset-a1"
+                      title="Clear Assignment 1 answers"
+                      class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                    >
+                      <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Topic Filter Pills -->
+              <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2 flex-wrap">
+                ${['All Topics', ...ASSIGNMENT_1_TOPICS]
+                  .map((topic) => {
+                    const active = a1TopicFilter === topic;
+                    const shortLabel = topic === 'All Topics' ? 'All 7 Topics (60)' : topic.replace(/^Topic \d+:\s*/, '');
+                    return `
+                      <button
+                        type="button"
+                        data-a1-topic="${escapeHTML(topic)}"
+                        class="a1-topic-btn px-3 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+                          active
+                            ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                            : 'bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300'
+                        }"
+                      >
+                        ${escapeHTML(shortLabel)}
+                      </button>
+                    `;
+                  })
+                  .join('')}
+              </div>
+            </div>
+
+            <!-- Grade Report Banner (toggled when user clicks Grade Assignment 1) -->
+            <div id="a1-grade-report" class="hidden bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-2xl p-5 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-indigo-100">Assignment 1 Performance Summary</p>
+                <h3 class="text-xl font-extrabold mt-0.5">Score: ${correctCount} / 60 (${Math.round((correctCount / 60) * 100)}% Overall)</h3>
+                <p class="text-xs text-indigo-100 mt-1">
+                  ${answeredCount < 60 ? `You have answered ${answeredCount} of 60 questions. Answer remaining questions or enable Study Key Mode to inspect all answers.` : 'All 60 questions completed! Review explanations below.'}
+                </p>
+              </div>
+              <button type="button" id="btn-close-a1-report" class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold self-start sm:self-center cursor-pointer">
+                Dismiss
+              </button>
+            </div>
+
+            <!-- Questions Grid -->
+            ${
+              filtered.length === 0
+                ? renderEmptySearch('Assignment 1 questions')
+                : `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${filtered.map((item) => renderA1Card(item)).join('')}
+                  </div>`
+            }
+          </div>
+        `;
+      }
+
+      function renderA1Card(item) {
+        const userAns = state.a1Answers[item.id];
+        const hasAnswered = typeof userAns === 'number';
+        const showAnswer = state.studyMode || hasAnswered;
+        const isUserCorrect = hasAnswered && userAns === item.correct;
+
+        let borderClass = 'border-slate-200/80 dark:border-slate-800';
+        if (hasAnswered) {
+          borderClass = isUserCorrect
+            ? 'border-emerald-300 dark:border-emerald-800/80'
+            : 'border-rose-300 dark:border-rose-800/80';
+        } else if (state.studyMode) {
+          borderClass = 'border-amber-300/80 dark:border-amber-800/70';
+        }
+
+        return `
+          <article class="bg-white dark:bg-slate-900 rounded-2xl border ${borderClass} p-5 shadow-xs flex flex-col justify-between gap-4 transition-all">
+            <div class="space-y-3">
+              <!-- Question Header -->
+              <div class="flex items-center justify-between gap-2">
+                <span class="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+                  Q${item.num}.
+                </span>
+                <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 truncate">
+                  ${escapeHTML(item.topic)}
+                </span>
+              </div>
+
+              <!-- Question Prompt -->
+              <p class="text-sm sm:text-[15px] font-semibold text-slate-900 dark:text-white leading-snug">
+                ${escapeHTML(item.q)}
+              </p>
+
+              <!-- Options A & B -->
+              <div class="space-y-2 pt-1">
+                ${item.options
+                  .map((opt, idx) => {
+                    const letter = idx === 0 ? 'A' : 'B';
+                    const isCorrectOpt = idx === item.correct;
+                    const isSelectedOpt = userAns === idx;
+
+                    let optStyle = 'bg-slate-50/80 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-600 text-slate-800 dark:text-slate-200';
+                    let badgeStyle = 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600';
+                    let statusIcon = '';
+
+                    if (showAnswer) {
+                      if (isCorrectOpt) {
+                        optStyle = 'bg-emerald-50/90 dark:bg-emerald-950/50 border-emerald-500 text-emerald-950 dark:text-emerald-100 font-semibold';
+                        badgeStyle = 'bg-emerald-600 text-white border-emerald-600';
+                        statusIcon = '<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0"></i>';
+                      } else if (isSelectedOpt && !isCorrectOpt) {
+                        optStyle = 'bg-rose-50/90 dark:bg-rose-950/50 border-rose-500 text-rose-950 dark:text-rose-100';
+                        badgeStyle = 'bg-rose-600 text-white border-rose-600';
+                        statusIcon = '<i data-lucide="x-circle" class="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0"></i>';
+                      } else {
+                        optStyle = 'bg-slate-50/40 dark:bg-slate-800/30 border-slate-200/60 dark:border-slate-800 text-slate-500 dark:text-slate-400';
+                      }
+                    }
+
+                    return `
+                      <button
+                        type="button"
+                        data-a1-qid="${item.id}"
+                        data-a1-opt="${idx}"
+                        class="a1-opt-btn w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${optStyle}"
+                      >
+                        <div class="flex items-center gap-2.5 min-w-0">
+                          <span class="w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 ${badgeStyle}">
+                            ${letter}
+                          </span>
+                          <span class="text-xs sm:text-sm leading-snug">${escapeHTML(opt)}</span>
+                        </div>
+                        ${statusIcon}
+                      </button>
+                    `;
+                  })
+                  .join('')}
+              </div>
+            </div>
+
+            <!-- Explanation Box -->
+            ${
+              showAnswer
+                ? `<div class="p-3 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/70 dark:border-indigo-900/60 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <span class="font-bold text-indigo-700 dark:text-indigo-300">Answer (${item.correct === 0 ? 'A' : 'B'}):</span> ${escapeHTML(item.explanation)}
+                  </div>`
+                : ''
+            }
+          </article>
+        `;
+      }
+
+      // =========================================================================
+      // 6. TAB 2: TUTORIAL 3 SHEET (89 QUESTIONS: SEC A, SEC B, SEC C)
+      // =========================================================================
+      function renderTutorial3() {
+        const qLower = searchQuery.trim().toLowerCase();
+
+        const secAFiltered = TUTORIAL_3_SEC_A.filter((item) => {
+          if (!qLower) return true;
+          return (
+            item.q.toLowerCase().includes(qLower) ||
+            item.options.some((o) => o.toLowerCase().includes(qLower)) ||
+            item.explanation.toLowerCase().includes(qLower)
+          );
+        });
+
+        const secBFiltered = TUTORIAL_3_SEC_B.filter((item) => {
+          if (!qLower) return true;
+          return (
+            `${item.before} ${item.answer} ${item.after}`.toLowerCase().includes(qLower)
+          );
+        });
+
+        const secCFiltered = TUTORIAL_3_SEC_C.filter((item) => {
+          if (!qLower) return true;
+          return (
+            item.statement.toLowerCase().includes(qLower) ||
+            item.correction.toLowerCase().includes(qLower)
+          );
+        });
+
+        return `
+          <div class="space-y-6 animate-fade-in">
+            <!-- Tutorial 3 Header & Section Sub-Navigation -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
+              <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+                    Tutorial 3 Complete Sheet • 89 Questions
+                  </span>
+                  <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-2">
+                    Tutorial 3: MCQs, Complete the Sentences & True/False Corrections
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Comprehensive practice sheet covering Lecture 7 & Tutorial 3 with smart blank checking and corrected rewrites for every False statement.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  id="btn-reset-t3"
+                  class="self-start lg:self-center inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                >
+                  <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                  <span>Reset Tutorial 3</span>
+                </button>
+              </div>
+
+              <!-- Sub-Navigation Pills -->
+              <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2 flex-wrap">
+                <button type="button" data-t3-sec="all" class="t3-sec-btn px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${t3SubSection === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">
+                  All Sections (89)
+                </button>
+                <button type="button" data-t3-sec="secA" class="t3-sec-btn px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${t3SubSection === 'secA' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">
+                  Section A: 40 MCQs
+                </button>
+                <button type="button" data-t3-sec="secB" class="t3-sec-btn px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${t3SubSection === 'secB' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">
+                  Section B: 20 Fill-in-the-Blanks
+                </button>
+                <button type="button" data-t3-sec="secC" class="t3-sec-btn px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${t3SubSection === 'secC' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">
+                  Section C: 29 True / False + Corrections
+                </button>
+              </div>
+            </div>
+
+            <!-- SECTION A: 40 MULTIPLE-CHOICE QUESTIONS -->
+            ${
+              t3SubSection === 'all' || t3SubSection === 'secA'
+                ? `<section class="space-y-4">
+                    <div class="flex items-center justify-between">
+                      <h3 class="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center justify-center">A</span>
+                        <span>Section A — Multiple-Choice Questions (Q1–Q40)</span>
+                      </h3>
+                      <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">${secAFiltered.length} shown</span>
+                    </div>
+                    ${
+                      secAFiltered.length === 0
+                        ? renderEmptySearch('Section A questions')
+                        : `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${secAFiltered.map((item) => renderT3SecACard(item)).join('')}
+                          </div>`
+                    }
+                  </section>`
+                : ''
+            }
+
+            <!-- SECTION B: 20 COMPLETE THE SENTENCES -->
+            ${
+              t3SubSection === 'all' || t3SubSection === 'secB'
+                ? `<section class="space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <h3 class="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center">B</span>
+                        <span>Section B — Complete the Sentences (Q1–Q20)</span>
+                      </h3>
+                      <button
+                        type="button"
+                        id="btn-check-all-secb"
+                        class="self-start sm:self-auto inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-colors cursor-pointer"
+                      >
+                        <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
+                        <span>Check All Typed Blanks</span>
+                      </button>
+                    </div>
+                    ${
+                      secBFiltered.length === 0
+                        ? renderEmptySearch('Section B blanks')
+                        : `<div class="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+                            ${secBFiltered.map((item) => renderT3SecBCard(item)).join('')}
+                          </div>`
+                    }
+                  </section>`
+                : ''
+            }
+
+            <!-- SECTION C: 29 TRUE OR FALSE + CORRECT THE FALSE STATEMENTS -->
+            ${
+              t3SubSection === 'all' || t3SubSection === 'secC'
+                ? `<section class="space-y-4">
+                    <div class="flex items-center justify-between">
+                      <h3 class="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center justify-center">C</span>
+                        <span>Section C — True or False; Correct the False Statements (Q1–Q29)</span>
+                      </h3>
+                      <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">${secCFiltered.length} shown</span>
+                    </div>
+                    ${
+                      secCFiltered.length === 0
+                        ? renderEmptySearch('Section C statements')
+                        : `<div class="space-y-3">
+                            ${secCFiltered.map((item) => renderT3SecCCard(item)).join('')}
+                          </div>`
+                    }
+                  </section>`
+                : ''
+            }
+          </div>
+        `;
+      }
+
+      function renderT3SecACard(item) {
+        const userAns = state.t3aAnswers[item.id];
+        const hasAnswered = typeof userAns === 'number';
+        const showAnswer = state.studyMode || hasAnswered;
+        const letters = ['A', 'B', 'C', 'D'];
+
+        return `
+          <article class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                  Sec A • Q${item.num}
+                </span>
+                ${
+                  hasAnswered
+                    ? `<span class="text-xs font-bold ${userAns === item.correct ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
+                        ${userAns === item.correct ? 'Correct' : 'Incorrect'}
+                      </span>`
+                    : ''
+                }
+              </div>
+
+              <p class="text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+                ${escapeHTML(item.q)}
+              </p>
+
+              <div class="space-y-2">
+                ${item.options
+                  .map((opt, idx) => {
+                    const isCorrectOpt = idx === item.correct;
+                    const isSelectedOpt = userAns === idx;
+                    let optStyle = 'bg-slate-50/80 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 text-slate-800 dark:text-slate-200';
+                    let badgeStyle = 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600';
+
+                    if (showAnswer) {
+                      if (isCorrectOpt) {
+                        optStyle = 'bg-emerald-50/90 dark:bg-emerald-950/50 border-emerald-500 text-emerald-950 dark:text-emerald-100 font-semibold';
+                        badgeStyle = 'bg-emerald-600 text-white border-emerald-600';
+                      } else if (isSelectedOpt) {
+                        optStyle = 'bg-rose-50/90 dark:bg-rose-950/50 border-rose-500 text-rose-950 dark:text-rose-100';
+                        badgeStyle = 'bg-rose-600 text-white border-rose-600';
+                      } else {
+                        optStyle = 'bg-slate-50/40 dark:bg-slate-800/30 border-slate-200/60 dark:border-slate-800 text-slate-500 dark:text-slate-400';
+                      }
+                    }
+
+                    return `
+                      <button
+                        type="button"
+                        data-t3a-qid="${item.id}"
+                        data-t3a-opt="${idx}"
+                        class="t3a-opt-btn w-full text-left p-2.5 rounded-xl border transition-all flex items-center gap-2.5 cursor-pointer ${optStyle}"
+                      >
+                        <span class="w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 ${badgeStyle}">
+                          ${letters[idx]}
+                        </span>
+                        <span class="text-xs sm:text-sm leading-snug">${escapeHTML(opt)}</span>
+                      </button>
+                    `;
+                  })
+                  .join('')}
+              </div>
+            </div>
+
+            ${
+              showAnswer
+                ? `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+                    <span class="font-bold text-emerald-700 dark:text-emerald-400">Answer (${letters[item.correct]}):</span> ${escapeHTML(item.explanation)}
+                  </div>`
+                : ''
+            }
+          </article>
+        `;
+      }
+
+      function checkBlankAnswer(item, rawInput) {
+        const cleaned = (rawInput || '').trim().toLowerCase().replace(/[()]/g, '');
+        if (!cleaned) return false;
+        return item.accepted.some((acc) => acc.toLowerCase() === cleaned);
+      }
+
+      function renderT3SecBCard(item) {
+        const typedVal = state.t3bAnswers[item.id] || '';
+        const isChecked = Boolean(state.t3bChecked[item.id]);
+        const isCorrect = isChecked && checkBlankAnswer(item, typedVal);
+        const showReveal = state.studyMode || isChecked;
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border ${
+            isChecked
+              ? isCorrect
+                ? 'border-emerald-300 dark:border-emerald-800'
+                : 'border-rose-300 dark:border-rose-800'
+              : 'border-slate-200/80 dark:border-slate-800'
+          } p-4 shadow-xs space-y-3">
+            <div class="flex items-start gap-2.5">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 shrink-0 mt-0.5">
+                ${item.num}.
+              </span>
+              <div class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed flex-1">
+                ${item.before ? `<span>${escapeHTML(item.before)} </span>` : ''}
+                <input
+                  type="text"
+                  data-t3b-input="${item.id}"
+                  value="${escapeHTML(typedVal)}"
+                  placeholder="Type answer..."
+                  class="t3b-input inline-block w-36 sm:w-44 px-2.5 py-1 mx-1 rounded-lg text-xs sm:text-sm font-semibold border ${
+                    isChecked
+                      ? isCorrect
+                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200'
+                        : 'bg-rose-50 dark:bg-rose-950/60 border-rose-500 text-rose-800 dark:text-rose-200'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white'
+                  } focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                />
+                ${item.after ? `<span> ${escapeHTML(item.after)}</span>` : ''}
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2 pt-1 pl-8">
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  data-t3b-check="${item.id}"
+                  class="t3b-check-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+                >
+                  Check
+                </button>
+                <button
+                  type="button"
+                  data-t3b-reveal="${item.id}"
+                  class="t3b-reveal-btn px-2.5 py-1 rounded-lg text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition-colors cursor-pointer"
+                >
+                  Show Answer
+                </button>
+              </div>
+
+              ${
+                showReveal
+                  ? `<span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800/70">
+                      Key: ${escapeHTML(item.answer)}
+                    </span>`
+                  : ''
+              }
+            </div>
+          </div>
+        `;
+      }
+
+      function renderT3SecCCard(item) {
+        const userChoice = state.t3cAnswers[item.id]; // true | false | undefined
+        const hasAnswered = typeof userChoice === 'boolean';
+        const showAnswer = state.studyMode || hasAnswered;
+        const isCorrect = hasAnswered && userChoice === item.isTrue;
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border ${
+            hasAnswered
+              ? isCorrect
+                ? 'border-emerald-300 dark:border-emerald-800'
+                : 'border-rose-300 dark:border-rose-800'
+              : 'border-slate-200/80 dark:border-slate-800'
+          } p-4 sm:p-5 shadow-xs space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 shrink-0 mt-0.5">
+                  ${item.num}.
+                </span>
+                <p class="text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+                  ${escapeHTML(item.statement)}
+                </p>
+              </div>
+
+              <!-- True / False Buttons -->
+              <div class="flex items-center gap-2 shrink-0 pl-9 sm:pl-0">
+                <button
+                  type="button"
+                  data-t3c-id="${item.id}"
+                  data-t3c-val="true"
+                  class="t3c-btn px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                    showAnswer && item.isTrue
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                      : userChoice === true && !item.isTrue
+                      ? 'bg-rose-600 text-white border-rose-600'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-400'
+                  }"
+                >
+                  True
+                </button>
+
+                <button
+                  type="button"
+                  data-t3c-id="${item.id}"
+                  data-t3c-val="false"
+                  class="t3c-btn px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                    showAnswer && !item.isTrue
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                      : userChoice === false && item.isTrue
+                      ? 'bg-rose-600 text-white border-rose-600'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-rose-400'
+                  }"
+                >
+                  False
+                </button>
+              </div>
+            </div>
+
+            <!-- Answer & Correction Display -->
+            ${
+              showAnswer
+                ? `<div class="ml-0 sm:ml-10 p-3 rounded-xl text-xs leading-relaxed ${
+                    item.isTrue
+                      ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/70 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-200'
+                      : 'bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800/70 text-amber-950 dark:text-amber-200'
+                  }">
+                    ${
+                      item.isTrue
+                        ? '<strong>Verified Answer: TRUE</strong> — This statement is accurate according to Lecture 7.'
+                        : `<strong>Verified Answer: ${escapeHTML(item.correction)}</strong>`
+                    }
+                  </div>`
+                : ''
+            }
+          </div>
+        `;
+      }
+
+      // =========================================================================
+      // 7. TAB 3: MOCK EXAM SIMULATOR
+      // =========================================================================
+      function buildQuestionPool(source) {
+        const a1Pool = ASSIGNMENT_1_QUESTIONS.map((q) => ({
+          uid: q.id,
+          sourceLabel: `Assignment 1 • ${q.topic.replace(/^Topic \d+:\s*/, '')}`,
+          topicCategory: q.topic.replace(/^Topic \d+:\s*/, ''),
+          q: q.q,
+          options: q.options,
+          correct: q.correct,
+          explanation: q.explanation,
+        }));
+
+        const t3aPool = TUTORIAL_3_SEC_A.map((q) => ({
+          uid: q.id,
+          sourceLabel: 'Tutorial 3 • Section A (MCQ)',
+          topicCategory: 'Tutorial 3 Conceptual & Architecture',
+          q: q.q,
+          options: q.options,
+          correct: q.correct,
+          explanation: q.explanation,
+        }));
+
+        const t3cPool = TUTORIAL_3_SEC_C.map((q) => ({
+          uid: q.id,
+          sourceLabel: 'Tutorial 3 • Section C (True/False)',
+          topicCategory: 'Tutorial 3 True/False Verification',
+          q: `True or False: ${q.statement}`,
+          options: ['True', 'False'],
+          correct: q.isTrue ? 0 : 1,
+          explanation: q.isTrue ? 'True — Verified accurate per Lecture 7.' : q.correction,
+        }));
+
+        if (source === 'a1') return a1Pool;
+        if (source === 't3') return [...t3aPool, ...t3cPool];
+        return [...a1Pool, ...t3aPool, ...t3cPool];
+      }
+
+      function startMockExam() {
+        const pool = buildQuestionPool(mockExam.source);
+        // Fisher-Yates shuffle
+        const shuffled = [...pool];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        const selected = shuffled.slice(0, Math.min(mockExam.count, shuffled.length));
+        clearInterval(mockExam.timerId);
+        mockExam = {
+          ...mockExam,
+          status: 'running',
+          questions: selected,
+          currentIndex: 0,
+          answers: {},
+          secondsLeft: mockExam.minutes * 60,
+          timerId: setInterval(() => {
+            if (mockExam.status !== 'running') {
+              clearInterval(mockExam.timerId);
+              return;
+            }
+            mockExam.secondsLeft--;
+            const timerEl = document.getElementById('mock-timer-text');
+            if (timerEl) {
+              const m = Math.floor(Math.max(0, mockExam.secondsLeft) / 60);
+              const s = Math.max(0, mockExam.secondsLeft) % 60;
+              timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            }
+            if (mockExam.secondsLeft <= 0) {
+              clearInterval(mockExam.timerId);
+              showToast('Exam time expired! Grading your submission...', 'warning');
+              finishMockExam();
+            }
+          }, 1000),
+        };
+        renderMainView();
+      }
+
+      function finishMockExam() {
+        clearInterval(mockExam.timerId);
+        mockExam.status = 'finished';
+        renderMainView();
+      }
+
+      function renderMockExam() {
+        if (mockExam.status === 'setup') {
+          return `
+            <div class="max-w-3xl mx-auto space-y-6 animate-fade-in">
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="timer" class="w-6 h-6"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Timed Exam Simulation</span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+                      Mobile Programming II — Mock Exam Simulator
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Simulate real exam conditions with randomized questions drawn from Assignment 1 (60 MCQs) and Tutorial 3 (40 MCQs + 29 True/False).
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Configuration Controls -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                  <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+                    <label for="mock-select-count" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Number of Questions
+                    </label>
+                    <select id="mock-select-count" class="w-full px-3 py-2.5 rounded-xl text-sm font-bold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                      <option value="20" ${mockExam.count === 20 ? 'selected' : ''}>20 Questions (Quick)</option>
+                      <option value="40" ${mockExam.count === 40 ? 'selected' : ''}>40 Questions (Midterm)</option>
+                      <option value="60" ${mockExam.count === 60 ? 'selected' : ''}>60 Questions (Full Final)</option>
+                    </select>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+                    <label for="mock-select-time" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Time Limit
+                    </label>
+                    <select id="mock-select-time" class="w-full px-3 py-2.5 rounded-xl text-sm font-bold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                      <option value="10" ${mockExam.minutes === 10 ? 'selected' : ''}>10 Minutes</option>
+                      <option value="15" ${mockExam.minutes === 15 ? 'selected' : ''}>15 Minutes</option>
+                      <option value="30" ${mockExam.minutes === 30 ? 'selected' : ''}>30 Minutes</option>
+                      <option value="45" ${mockExam.minutes === 45 ? 'selected' : ''}>45 Minutes</option>
+                    </select>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+                    <label for="mock-select-source" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Question Bank
+                    </label>
+                    <select id="mock-select-source" class="w-full px-3 py-2.5 rounded-xl text-sm font-bold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                      <option value="all" ${mockExam.source === 'all' ? 'selected' : ''}>All Banks (129 Qs)</option>
+                      <option value="a1" ${mockExam.source === 'a1' ? 'selected' : ''}>Assignment 1 Only (60 Qs)</option>
+                      <option value="t3" ${mockExam.source === 't3' ? 'selected' : ''}>Tutorial 3 Only (69 Qs)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100 dark:border-slate-800">
+                  <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Answers are hidden during the exam and graded upon submission with a full topic-by-topic breakdown.
+                  </p>
+                  <button
+                    type="button"
+                    id="btn-start-mock"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/20 transition-all cursor-pointer"
+                  >
+                    <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                    <span>Launch Timed Exam</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        if (mockExam.status === 'running') {
+          const total = mockExam.questions.length;
+          const idx = mockExam.currentIndex;
+          const q = mockExam.questions[idx];
+          const selected = mockExam.answers[idx];
+          const answeredTotal = Object.keys(mockExam.answers).length;
+          const mins = Math.floor(Math.max(0, mockExam.secondsLeft) / 60);
+          const secs = Math.max(0, mockExam.secondsLeft) % 60;
+          const letters = ['A', 'B', 'C', 'D'];
+
+          return `
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 animate-fade-in">
+              <!-- Main Question Area (3 Cols) -->
+              <div class="lg:col-span-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm flex flex-col justify-between gap-6">
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between gap-3 flex-wrap pb-3 border-b border-slate-100 dark:border-slate-800">
+                    <div>
+                      <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                        Question ${idx + 1} of ${total}
+                      </span>
+                      <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${escapeHTML(q.sourceLabel)}</p>
+                    </div>
+
+                    <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300 font-mono text-sm font-extrabold">
+                      <i data-lucide="clock" class="w-4 h-4"></i>
+                      <span id="mock-timer-text">${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}</span>
+                    </div>
+                  </div>
+
+                  <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                    ${escapeHTML(q.q)}
+                  </h3>
+
+                  <div class="space-y-2.5 pt-2">
+                    ${q.options
+                      .map((opt, optIdx) => {
+                        const isPicked = selected === optIdx;
+                        return `
+                          <button
+                            type="button"
+                            data-mock-opt="${optIdx}"
+                            class="mock-opt-btn w-full text-left p-4 rounded-xl border transition-all flex items-center gap-3 cursor-pointer ${
+                              isPicked
+                                ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-600 text-indigo-950 dark:text-white font-semibold shadow-xs'
+                                : 'bg-slate-50/70 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 hover:border-indigo-400 text-slate-800 dark:text-slate-200'
+                            }"
+                          >
+                            <span class="w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 ${
+                              isPicked ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200'
+                            }">
+                              ${letters[optIdx]}
+                            </span>
+                            <span class="text-sm leading-snug">${escapeHTML(opt)}</span>
+                          </button>
+                        `;
+                      })
+                      .join('')}
+                  </div>
+                </div>
+
+                <!-- Navigation Footer -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    id="btn-mock-prev"
+                    ${idx === 0 ? 'disabled' : ''}
+                    class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  >
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>Previous</span>
+                  </button>
+
+                  <div class="flex items-center gap-2.5">
+                    ${
+                      idx < total - 1
+                        ? `<button
+                            type="button"
+                            id="btn-mock-next"
+                            class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors cursor-pointer"
+                          >
+                            <span>Next Question</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                          </button>`
+                        : ''
+                    }
+                    <button
+                      type="button"
+                      id="btn-mock-submit"
+                      class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-colors cursor-pointer"
+                    >
+                      <i data-lucide="check-circle" class="w-4 h-4"></i>
+                      <span>Submit Exam (${answeredTotal}/${total})</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Question Navigator Grid Sidebar -->
+              <aside class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4 self-start">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Question Navigator</h4>
+                  <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400">${answeredTotal}/${total}</span>
+                </div>
+
+                <div class="grid grid-cols-5 gap-1.5">
+                  ${mockExam.questions
+                    .map((_, i) => {
+                      const isCurr = i === idx;
+                      const isAns = typeof mockExam.answers[i] === 'number';
+                      let cls = 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
+                      if (isCurr) cls = 'bg-indigo-600 text-white ring-2 ring-indigo-400/50';
+                      else if (isAns) cls = 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800';
+                      return `
+                        <button type="button" data-mock-jump="${i}" class="mock-jump-btn h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${cls}">
+                          ${i + 1}
+                        </button>
+                      `;
+                    })
+                    .join('')}
+                </div>
+
+                <button
+                  type="button"
+                  id="btn-mock-abort"
+                  class="w-full py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200/70 dark:border-rose-900/60 transition-colors cursor-pointer"
+                >
+                  Cancel & Return to Setup
+                </button>
+              </aside>
+            </div>
+          `;
+        }
+
+        // Status === 'finished': Score Report + Topic Accuracy Breakdown + Wrong Answer Review
+        const total = mockExam.questions.length;
+        let correctCount = 0;
+        const topicStats = {};
+
+        mockExam.questions.forEach((q, i) => {
+          if (!topicStats[q.topicCategory]) {
+            topicStats[q.topicCategory] = { correct: 0, total: 0 };
+          }
+          topicStats[q.topicCategory].total++;
+          if (mockExam.answers[i] === q.correct) {
+            correctCount++;
+            topicStats[q.topicCategory].correct++;
+          }
+        });
+
+        const pct = Math.round((correctCount / total) * 100);
+        const gradeLabel = pct >= 85 ? 'Excellent (A)' : pct >= 75 ? 'Very Good (B)' : pct >= 60 ? 'Pass (C)' : 'Needs Revision';
+
+        return `
+          <div class="space-y-6 animate-fade-in">
+            <!-- Score Banner -->
+            <div class="bg-gradient-to-br from-indigo-600 via-blue-600 to-violet-700 text-white rounded-2xl p-6 sm:p-8 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="space-y-2">
+                <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/15">
+                  Mock Exam Results • ${gradeLabel}
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold">
+                  ${correctCount} / ${total} Correct (${pct}%)
+                </h2>
+                <p class="text-sm text-indigo-100 max-w-xl">
+                  Review your topic-by-topic accuracy breakdown and inspect every question with verified answers and explanations below.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                id="btn-mock-restart"
+                class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 text-sm font-bold shadow-md transition-colors cursor-pointer shrink-0"
+              >
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                <span>New Mock Exam</span>
+              </button>
+            </div>
+
+            <!-- Topic-by-Topic Accuracy Breakdown -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm space-y-4">
+              <h3 class="text-base font-extrabold text-slate-900 dark:text-white">Topic-by-Topic Accuracy Breakdown</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${Object.entries(topicStats)
+                  .map(([topicName, st]) => {
+                    const tPct = Math.round((st.correct / st.total) * 100);
+                    const barColor = tPct >= 75 ? 'bg-emerald-500' : tPct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
+                    return `
+                      <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/70 space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${escapeHTML(topicName)}</span>
+                          <span class="text-xs font-extrabold text-slate-900 dark:text-white shrink-0">${st.correct}/${st.total} (${tPct}%)</span>
+                        </div>
+                        <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                          <div class="h-full ${barColor} rounded-full" style="width: ${tPct}%"></div>
+                        </div>
+                      </div>
+                    `;
+                  })
+                  .join('')}
+              </div>
+            </div>
+
+            <!-- Detailed Answer Review -->
+            <div class="space-y-3">
+              <h3 class="text-base font-extrabold text-slate-900 dark:text-white">Complete Question-by-Question Review</h3>
+              ${mockExam.questions
+                .map((q, i) => {
+                  const uAns = mockExam.answers[i];
+                  const isRight = uAns === q.correct;
+                  const uText = typeof uAns === 'number' ? q.options[uAns] : 'Unanswered';
+                  const cText = q.options[q.correct];
+                  return `
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border ${
+                      isRight ? 'border-emerald-200 dark:border-emerald-900/70' : 'border-rose-200 dark:border-rose-900/70'
+                    } p-4 sm:p-5 shadow-xs space-y-2">
+                      <div class="flex items-start justify-between gap-3">
+                        <p class="text-sm font-bold text-slate-900 dark:text-white">
+                          <span class="font-mono text-indigo-600 dark:text-indigo-400 mr-1.5">Q${i + 1}.</span>${escapeHTML(q.q)}
+                        </p>
+                        <span class="shrink-0 text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                          isRight
+                            ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
+                            : 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300'
+                        }">
+                          ${isRight ? 'Correct' : 'Incorrect'}
+                        </span>
+                      </div>
+                      <p class="text-xs text-slate-600 dark:text-slate-300">
+                        <strong>Your Answer:</strong> ${escapeHTML(uText)}
+                      </p>
+                      ${
+                        !isRight
+                          ? `<p class="text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                              Correct Answer: ${escapeHTML(cText)}
+                            </p>`
+                          : ''
+                      }
+                      <p class="text-xs text-slate-600 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <strong>Explanation:</strong> ${escapeHTML(q.explanation)}
+                      </p>
+                    </div>
+                  `;
+                })
+                .join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // =========================================================================
+      // 8. TAB 4: LABS & CODING SOLUTIONS (LAB 1, TUTORIAL 4, TUTORIAL 5)
+      // =========================================================================
+      const CODE_SNIPPETS = {
+        dioExample: `import 'package:dio/dio.dart';
+
+class ApiService {
+  late final Dio _dio;
+
+  ApiService() {
+    // 1. BaseOptions: shared base URL, headers & timeouts
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://api.example.com/v1',
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
+
+    // 2. Interceptors: attach auth token & log requests/errors
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.headers['Authorization'] = 'Bearer YOUR_ACCESS_TOKEN';
+          print('[DIO REQUEST] \${options.method} \${options.uri}');
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          print('[DIO RESPONSE] \${response.statusCode}');
+          return handler.next(response);
+        },
+        onError: (DioException e, handler) {
+          print('[DIO ERROR] \${e.message}');
+          return handler.next(e);
+        },
+      ),
+    );
+  }
+
+  // 3. GET with CancelToken (abort if user leaves screen)
+  Future<List<dynamic>> fetchStudents(CancelToken cancelToken) async {
+    final response = await _dio.get('/students', cancelToken: cancelToken);
+    return response.data as List<dynamic>;
+  }
+
+  // 4. File & Form Upload using FormData
+  Future<void> uploadAvatar(String filePath, String studentName) async {
+    final formData = FormData.fromMap({
+      'name': studentName,
+      'avatar': await MultipartFile.fromFile(filePath, filename: 'avatar.jpg'),
+    });
+    await _dio.post('/students/upload', data: formData);
+  }
+}`,
+        cubitTodo: `import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// 1. Immutable States for TodoCubit
+sealed class TodoState {
+  final List<String> items;
+  const TodoState(this.items);
+}
+
+class TodoInitial extends TodoState {
+  const TodoInitial() : super(const []);
+}
+
+class TodoUpdated extends TodoState {
+  final String? lastAddedItem;
+  const TodoUpdated(super.items, {this.lastAddedItem});
+}
+
+// 2. TodoCubit holding List<String> with add() and remove()
+class TodoCubit extends Cubit<TodoState> {
+  TodoCubit() : super(const TodoInitial());
+
+  static TodoCubit get(BuildContext context) => BlocProvider.of<TodoCubit>(context);
+
+  void add(String task) {
+    final trimmed = task.trim();
+    if (trimmed.isEmpty) return;
+    final updatedList = List<String>.from(state.items)..add(trimmed);
+    emit(TodoUpdated(updatedList, lastAddedItem: trimmed));
+  }
+
+  void remove(int index) {
+    final updatedList = List<String>.from(state.items)..removeAt(index);
+    emit(TodoUpdated(updatedList));
+  }
+}
+
+// 3. Provide TodoCubit above TodoPage
+class TodoApp extends StatelessWidget {
+  const TodoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => TodoCubit(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: TodoPage(),
+      ),
+    );
+  }
+}
+
+// 4. TodoPage with Bonus AppBar count, BlocListener SnackBar & BlocBuilder ListView
+class TodoPage extends StatefulWidget {
+  const TodoPage({super.key});
+
+  @override
+  State<TodoPage> createState() => _TodoPageState();
+}
+
+class _TodoPageState extends State<TodoPage> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: BlocBuilder<TodoCubit, TodoState>(
+          builder: (context, state) {
+            // Bonus: live item count in the AppBar from the same TodoCubit
+            return Text('My Tasks (\${state.items.length})');
+          },
+        ),
+      ),
+      body: BlocListener<TodoCubit, TodoState>(
+        listener: (context, state) {
+          // Step 4: Show SnackBar when a new item is added
+          if (state is TodoUpdated && state.lastAddedItem != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Added: "\${state.lastAddedItem}"')),
+            );
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        hintText: 'Enter a task...',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      TodoCubit.get(context).add(_controller.text);
+                      _controller.clear();
+                    },
+                    child: const Text('Add'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Step 3: Render items using BlocBuilder + ListView
+              Expanded(
+                child: BlocBuilder<TodoCubit, TodoState>(
+                  builder: (context, state) {
+                    if (state.items.isEmpty) {
+                      return const Center(child: Text('No tasks yet. Add one above!'));
+                    }
+                    return ListView.builder(
+                      itemCount: state.items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(state.items[index]),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            onPressed: () => TodoCubit.get(context).remove(index),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}`,
+        flaskApi: `# 1. Virtual Environment & Setup Commands:
+# python -m venv venv
+# venv\\Scripts\\Activate.ps1   (Windows) | source venv/bin/activate (macOS/Linux)
+# pip install flask python-dotenv
+
+# 2. Sample .env file:
+# PORT=5000
+# HOST=0.0.0.0
+# DEBUG=True
+
+import os
+from flask import Flask, jsonify, request
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app = Flask(__name__)
+
+# In-memory sample users store
+users = [
+    {"id": 1, "name": "Sara", "email": "sara@batu.edu.eg"},
+    {"id": 2, "name": "Omar", "email": "omar@batu.edu.eg"},
+]
+
+# GET /users -> Retrieve all users
+@app.route("/users", methods=["GET"])
+def get_users():
+    print("[GET] Fetching all users...")
+    return jsonify(users), 200
+
+# GET /users/<id> -> Retrieve a single user by ID
+@app.route("/users/<int:user_id>", methods=["GET"])
+def get_user(user_id):
+    print(f"[GET] Fetching user {user_id}...")
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return jsonify(user), 200
+
+# POST /users -> Create a new user
+@app.route("/users", methods=["POST"])
+def create_user():
+    print("[POST] Creating new user...")
+    data = request.get_json() or {}
+    if "name" not in data or "email" not in data:
+        return jsonify({"error": "name and email are required"}), 400
+    new_id = max((u["id"] for u in users), default=0) + 1
+    new_user = {"id": new_id, "name": data["name"], "email": data["email"]}
+    users.append(new_user)
+    return jsonify(new_user), 201
+
+# PUT /users/<id> -> Replace an entire user record
+@app.route("/users/<int:user_id>", methods=["PUT"])
+def replace_user(user_id):
+    print(f"[PUT] Replacing user {user_id}...")
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    data = request.get_json() or {}
+    if "name" not in data or "email" not in data:
+        return jsonify({"error": "PUT requires full name and email"}), 400
+    user["name"] = data["name"]
+    user["email"] = data["email"]
+    return jsonify(user), 200
+
+# PATCH /users/<id> -> Update selected fields of a user
+@app.route("/users/<int:user_id>", methods=["PATCH"])
+def update_user_partial(user_id):
+    print(f"[PATCH] Updating fields for user {user_id}...")
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    data = request.get_json() or {}
+    if "name" in data:
+        user["name"] = data["name"]
+    if "email" in data:
+        user["email"] = data["email"]
+    return jsonify(user), 200
+
+# DELETE /users/<id> -> Delete a user record
+@app.route("/users/<int:user_id>", methods=["DELETE"])
+def delete_user(user_id):
+    print(f"[DELETE] Deleting user {user_id}...")
+    global users
+    user = next((u for u in users if u["id"] == user_id), None)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    users = [u for u in users if u["id"] != user_id]
+    return jsonify({"message": f"User {user_id} deleted"}), 200
+
+if __name__ == "__main__":
+    app.run(
+        host=os.getenv("HOST", "127.0.0.1"),
+        port=int(os.getenv("PORT", 5000)),
+        debug=os.getenv("DEBUG", "True") == "True",
+    )`
+      };
+
+      function renderLabs() {
+        return `
+          <div class="space-y-8 animate-fade-in">
+            <!-- LAB 1: API INTEGRATION Q&A + DIO CODE -->
+            <section class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm space-y-6">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300">
+                    Lab 1 • API Integration
+                  </span>
+                  <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mt-2">
+                    Lab 1: API Concepts, HTTP Methods & Flutter Dio Networking
+                  </h2>
+                </div>
+              </div>
+
+              <!-- Lab 1 Q&A Cards -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 space-y-1.5">
+                  <h3 class="text-sm font-bold text-indigo-600 dark:text-indigo-400">1. What is an API?</h3>
+                  <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>API</strong> stands for <strong>Application Programming Interface</strong>. It is a set of rules that lets two software programs talk to each other (like a waiter carrying orders between a customer and the kitchen).
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 space-y-1.5">
+                  <h3 class="text-sm font-bold text-indigo-600 dark:text-indigo-400">2. Why are APIs Important?</h3>
+                  <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1 list-disc pl-4">
+                    <li>Enable communication between separate systems.</li>
+                    <li>Allow apps to reuse existing services instead of reinventing the wheel.</li>
+                    <li>Save development time & cost (weather apps, PayPal/Stripe payments, social media).</li>
+                  </ul>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 space-y-1.5">
+                  <h3 class="text-sm font-bold text-indigo-600 dark:text-indigo-400">3. What are the Common HTTP Methods?</h3>
+                  <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                    <li><strong>GET:</strong> Retrieve/read data (e.g., fetch user profile)</li>
+                    <li><strong>POST:</strong> Create new data (e.g., register a new user)</li>
+                    <li><strong>PUT:</strong> Update/replace an entire resource</li>
+                    <li><strong>PATCH:</strong> Update part of a resource (e.g., change only email)</li>
+                    <li><strong>DELETE:</strong> Remove a resource from the server</li>
+                  </ul>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 space-y-1.5">
+                  <h3 class="text-sm font-bold text-indigo-600 dark:text-indigo-400">4. Two Flutter Packages for API Integration</h3>
+                  <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1.5">
+                    <li><strong>http package:</strong> Lightweight, standard package for simple GET/POST/PUT/DELETE requests.</li>
+                    <li><strong>Dio package:</strong> Powerful HTTP client supporting <code>BaseOptions</code>, <code>Interceptors</code> (auth & logging), <code>FormData</code> file uploads, structured <code>DioException</code> errors, and <code>CancelToken</code>.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Dio Code Example -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Flutter Dio Client Example (BaseOptions, Interceptors, FormData & CancelToken)
+                  </span>
+                  <button type="button" data-copy-key="dioExample" class="copy-code-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors cursor-pointer">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                    <span>Copy Dart Code</span>
+                  </button>
+                </div>
+                <pre class="p-4 rounded-2xl bg-slate-950 text-slate-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800"><code>${escapeHTML(CODE_SNIPPETS.dioExample)}</code></pre>
+              </div>
+            </section>
+
+            <!-- TUTORIAL 4 LAB EXERCISE: TO-DO LIST WITH CUBIT -->
+            <section class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+                    Tutorial 4 Lab Exercise • State Management with Cubit
+                  </span>
+                  <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mt-2">
+                    Solved Lab: Complete To-Do List with TodoCubit, BlocBuilder, BlocListener & AppBar Counter
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Implements Step 1 (<code>TodoCubit</code> with <code>List&lt;String&gt;</code>, <code>add()</code>, <code>remove()</code>), Step 2 (<code>BlocProvider</code>), Step 3 (<code>BlocBuilder</code> + <code>ListView</code>), Step 4 (<code>BlocListener</code> <code>SnackBar</code>), and the Bonus live <code>AppBar</code> count.
+                  </p>
+                </div>
+                <button type="button" data-copy-key="cubitTodo" class="self-start sm:self-center inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-colors cursor-pointer shrink-0">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Copy Complete Flutter App</span>
+                </button>
+              </div>
+
+              <pre class="p-4 rounded-2xl bg-slate-950 text-slate-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800"><code>${escapeHTML(CODE_SNIPPETS.cubitTodo)}</code></pre>
+            </section>
+
+            <!-- TUTORIAL 5: FLASK REST API -->
+            <section class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300">
+                    Tutorial 5 • Python Backend
+                  </span>
+                  <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mt-2">
+                    Complete Flask REST API (CRUD Endpoints, Virtual Environment & .env)
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Includes <code>GET /users</code>, <code>GET /users/&lt;id&gt;</code>, <code>POST /users</code>, <code>PUT /users/&lt;id&gt;</code>, <code>PATCH /users/&lt;id&gt;</code>, and <code>DELETE /users/&lt;id&gt;</code> with request logging and <code>python-dotenv</code>.
+                  </p>
+                </div>
+                <button type="button" data-copy-key="flaskApi" class="self-start sm:self-center inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white shadow-xs transition-colors cursor-pointer shrink-0">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Copy Flask Backend</span>
+                </button>
+              </div>
+
+              <pre class="p-4 rounded-2xl bg-slate-950 text-slate-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800"><code>${escapeHTML(CODE_SNIPPETS.flaskApi)}</code></pre>
+            </section>
+          </div>
+        `;
+      }
+
+      // =========================================================================
+      // 9. TAB 5: REVISION NOTES (LECTURE 7 & TUTORIALS)
+      // =========================================================================
+      function renderRevisionNotes() {
+        return `
+          <div class="space-y-6 animate-fade-in">
+            <!-- Top Banner -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm">
+              <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                High-Yield Exam Cheat Sheet
+              </span>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-2">
+                Lecture 7 & Tutorial 4 Structured Revision Notes
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                Quick-reference architecture diagrams, HTTP status codes, http vs Dio tables, BLoC/Cubit flows, Firebase services, and security rules.
+              </p>
+            </div>
+
+            <!-- Grid of Revision Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Card 1: Client-Server Architecture & Layers -->
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="layers" class="w-4 h-4 text-indigo-600"></i>
+                  <span>1. Client-Server & Clean App Architecture</span>
+                </h3>
+                <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/70 text-xs font-mono text-center space-y-1.5">
+                  <div class="font-bold text-indigo-600 dark:text-indigo-400">Flutter App (Frontend / Client: Screens + User Actions)</div>
+                  <div class="text-slate-400">⇅ API / HTTP (JSON Request + Status Code Response)</div>
+                  <div class="font-bold text-emerald-600 dark:text-emerald-400">Flask Backend (Routes + Business Logic + Password Hashing)</div>
+                  <div class="text-slate-400">⇅ SQL / ORM</div>
+                  <div class="font-bold text-amber-600 dark:text-amber-400">Database (SQLite / Cloud Firestore Saved Data)</div>
+                </div>
+                <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1.5">
+                  <li><strong>UI / Presentation Layer:</strong> Displays current state and collects user actions.</li>
+                  <li><strong>BLoC / Cubit Layer:</strong> Handles business logic and emits the next immutable state.</li>
+                  <li><strong>Repository Layer:</strong> Single clean entry point for business logic to fetch data from APIs, databases, or cache.</li>
+                  <li><strong>Service / Data Source Layer:</strong> Isolates raw HTTP/Dio/AI calls away from UI widgets.</li>
+                </ul>
+              </div>
+
+              <!-- Card 2: HTTP Status Codes -->
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="server" class="w-4 h-4 text-emerald-600"></i>
+                  <span>2. Essential HTTP Status Codes</span>
+                </h3>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+                        <th class="py-2 pr-3 font-bold">Code</th>
+                        <th class="py-2 pr-3 font-bold">Status</th>
+                        <th class="py-2 font-bold">Exam Meaning</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800/80 text-slate-700 dark:text-slate-300">
+                      <tr><td class="py-2 font-mono font-bold text-emerald-600">200</td><td class="py-2 font-semibold">OK</td><td class="py-2">The request succeeded.</td></tr>
+                      <tr><td class="py-2 font-mono font-bold text-emerald-600">201</td><td class="py-2 font-semibold">Created</td><td class="py-2">A new resource was created successfully (e.g., POST).</td></tr>
+                      <tr><td class="py-2 font-mono font-bold text-amber-600">400</td><td class="py-2 font-semibold">Bad Request</td><td class="py-2">The request contains invalid syntax or missing fields.</td></tr>
+                      <tr><td class="py-2 font-mono font-bold text-amber-600">401</td><td class="py-2 font-semibold">Unauthorized</td><td class="py-2">Authentication is missing or invalid.</td></tr>
+                      <tr><td class="py-2 font-mono font-bold text-amber-600">403</td><td class="py-2 font-semibold">Forbidden</td><td class="py-2">Authenticated, but access is not allowed (Authorization).</td></tr>
+                      <tr><td class="py-2 font-mono font-bold text-rose-600">404</td><td class="py-2 font-semibold">Not Found</td><td class="py-2">The requested resource or endpoint does not exist.</td></tr>
+                      <tr><td class="py-2 font-mono font-bold text-rose-600">500</td><td class="py-2 font-semibold">Internal Server Error</td><td class="py-2">An unhandled error occurred on the backend server.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Card 3: Asynchronous Dart & http vs Dio -->
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+                  <span>3. Asynchronous Dart & http vs Dio Comparison</span>
+                </h3>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Future:</strong> One result or error available later.</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Stream:</strong> Sequence of async events over time.</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>async / await:</strong> Wait without freezing UI screen.</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>jsonDecode():</strong> Converts JSON String → Dart data.</div>
+                </div>
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+                      <th class="py-2 pr-2 font-bold">Feature</th>
+                      <th class="py-2 pr-2 font-bold">http package</th>
+                      <th class="py-2 font-bold">Dio package</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 dark:divide-slate-800/80 text-slate-700 dark:text-slate-300">
+                    <tr><td class="py-1.5 font-semibold">Configuration</td><td class="py-1.5">Manual per call</td><td class="py-1.5"><code>BaseOptions</code> (baseUrl, timeouts, headers)</td></tr>
+                    <tr><td class="py-1.5 font-semibold">Interceptors</td><td class="py-1.5">Custom wrappers needed</td><td class="py-1.5">Built-in request/response/error interceptors</td></tr>
+                    <tr><td class="py-1.5 font-semibold">File Uploads</td><td class="py-1.5">Manual MultipartRequest</td><td class="py-1.5"><code>FormData</code> + upload progress tracking</td></tr>
+                    <tr><td class="py-1.5 font-semibold">Cancellation</td><td class="py-1.5">Limited</td><td class="py-1.5"><code>CancelToken</code> stops active requests</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Card 4: State Management (Tutorial 4: Ephemeral vs App State & Cubit) -->
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="git-branch" class="w-4 h-4 text-purple-600"></i>
+                  <span>4. Flutter State Management & Cubit (Tutorial 4)</span>
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                  <div class="p-3 rounded-xl bg-purple-50/70 dark:bg-purple-950/30 border border-purple-200/60 dark:border-purple-900/50">
+                    <p class="font-bold text-purple-800 dark:text-purple-300">Ephemeral (Local) State</p>
+                    <p class="text-slate-600 dark:text-slate-300 mt-0.5">Belongs to one widget (tab index, animation, checkbox). Use <code>setState()</code>.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200/60 dark:border-indigo-900/50">
+                    <p class="font-bold text-indigo-800 dark:text-indigo-300">App (Shared) State</p>
+                    <p class="text-slate-600 dark:text-slate-300 mt-0.5">Shared across screens (user session, cart). Use <code>Cubit / BLoC</code>.</p>
+                  </div>
+                </div>
+                <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-1.5">
+                  <li><strong>BLoC vs Cubit:</strong> BLoC receives <em>Event</em> classes and emits <em>States</em>; Cubit exposes direct <em>methods</em> that call <code>emit(newState)</code>.</li>
+                  <li><strong>BlocProvider:</strong> Creates a Cubit and provides it to every widget below in the tree.</li>
+                  <li><strong>BlocBuilder:</strong> Rebuilds UI widgets whenever a new state is emitted.</li>
+                  <li><strong>BlocListener:</strong> Runs side-effects once per state change (Navigation, <code>SnackBar</code>, Dialogs) without rebuilding UI.</li>
+                  <li><strong>BlocConsumer:</strong> Combines both <code>BlocBuilder</code> and <code>BlocListener</code> in one widget.</li>
+                </ul>
+              </div>
+
+              <!-- Card 5: Firebase BaaS & Auth Methods -->
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="flame" class="w-4 h-4 text-orange-500"></i>
+                  <span>5. Firebase BaaS Services & Auth Methods</span>
+                </h3>
+                <div class="grid grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300">
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Authentication:</strong> Sign-up, login & UID</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Cloud Firestore:</strong> Save & sync app data</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Cloud Storage:</strong> Store images & files</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>FCM:</strong> Push notifications</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Analytics & Crashlytics:</strong> Usage & crash logs</div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70"><strong>Firebase AI Logic:</strong> Bridge to Gemini AI</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 text-slate-200 font-mono text-[11px] space-y-1">
+                  <div>• createUserWithEmailAndPassword() / signInWithEmailAndPassword()</div>
+                  <div>• signOut() / FirebaseAuth.instance.currentUser</div>
+                  <div>• sendEmailVerification() / sendPasswordResetEmail()</div>
+                  <div>• updateDisplayName() / updatePhotoURL() / delete()</div>
+                </div>
+              </div>
+
+              <!-- Card 6: Generative AI (Gemini) & Security Checklist -->
+              <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-sm space-y-4">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-teal-600"></i>
+                  <span>6. Gemini Models & Security Golden Rules</span>
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                  <div class="p-3 rounded-xl bg-teal-50/70 dark:bg-teal-950/30 border border-teal-200/60 dark:border-teal-900/50">
+                    <p class="font-bold text-teal-800 dark:text-teal-300">Gemini 2.5 Flash</p>
+                    <p class="text-slate-600 dark:text-slate-300 mt-0.5">Fast, cost-aware tasks: chatbots, short summaries, text completion.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-900/50">
+                    <p class="font-bold text-blue-800 dark:text-blue-300">Gemini 2.5 Pro</p>
+                    <p class="text-slate-600 dark:text-slate-300 mt-0.5">Complex reasoning, multi-step math, code analysis & academic tasks.</p>
+                  </div>
+                </div>
+                <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-1.5 list-disc pl-4">
+                  <li><strong>Authentication vs Authorization:</strong> Authentication checks <em>who</em> you are; Authorization controls <em>what</em> you can access.</li>
+                  <li><strong>Never hardcode secret API keys</strong> in Flutter apps; binaries can be decompiled. Keep secrets on a secure backend.</li>
+                  <li><strong>HTTPS/TLS</strong> encrypts data in transit, but does <em>not</em> guarantee a bug-free server.</li>
+                  <li><strong>Firebase App Check</strong> verifies requests come from genuine, untampered app instances.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderEmptySearch(label) {
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+            <i data-lucide="search-x" class="w-8 h-8 text-slate-400 mx-auto mb-2"></i>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">No matching ${label} found</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Clear the search bar or reset filters to see all questions.</p>
+          </div>
+        `;
+      }
+
+      // =========================================================================
+      // 10. MASTER RENDER & EVENT BINDING
+      // =========================================================================
+      function renderMainView() {
+        updateGlobalProgress();
+        const mainEl = document.getElementById('app-main');
+
+        if (activeTab === 'assignment1') {
+          mainEl.innerHTML = renderAssignment1();
+        } else if (activeTab === 'tutorial3') {
+          mainEl.innerHTML = renderTutorial3();
+        } else if (activeTab === 'mockexam') {
+          mainEl.innerHTML = renderMockExam();
+        } else if (activeTab === 'labs') {
+          mainEl.innerHTML = renderLabs();
+        } else if (activeTab === 'revision') {
+          mainEl.innerHTML = renderRevisionNotes();
+        }
+
+        lucide.createIcons({ nodes: [mainEl] });
+        bindViewEvents();
+      }
+
+      function bindViewEvents() {
+        // Assignment 1 events
+        document.querySelectorAll('.a1-opt-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const qid = btn.getAttribute('data-a1-qid');
+            const opt = Number(btn.getAttribute('data-a1-opt'));
+            state.a1Answers[qid] = opt;
+            saveState();
+            renderMainView();
+          });
+        });
+
+        document.querySelectorAll('.a1-topic-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            a1TopicFilter = btn.getAttribute('data-a1-topic');
+            renderMainView();
+          });
+        });
+
+        const gradeA1Btn = document.getElementById('btn-grade-a1');
+        if (gradeA1Btn) {
+          gradeA1Btn.addEventListener('click', () => {
+            const report = document.getElementById('a1-grade-report');
+            if (report) report.classList.remove('hidden');
+            showToast('Assignment 1 score summary updated!', 'success');
+          });
+        }
+
+        const closeA1Report = document.getElementById('btn-close-a1-report');
+        if (closeA1Report) {
+          closeA1Report.addEventListener('click', () => {
+            const report = document.getElementById('a1-grade-report');
+            if (report) report.classList.add('hidden');
+          });
+        }
+
+        const resetA1Btn = document.getElementById('btn-reset-a1');
+        if (resetA1Btn) {
+          resetA1Btn.addEventListener('click', () => {
+            state.a1Answers = {};
+            saveState();
+            renderMainView();
+            showToast('Assignment 1 answers cleared.', 'info');
+          });
+        }
+
+        // Tutorial 3 events
+        document.querySelectorAll('.t3-sec-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            t3SubSection = btn.getAttribute('data-t3-sec');
+            renderMainView();
+          });
+        });
+
+        document.querySelectorAll('.t3a-opt-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const qid = btn.getAttribute('data-t3a-qid');
+            const opt = Number(btn.getAttribute('data-t3a-opt'));
+            state.t3aAnswers[qid] = opt;
+            saveState();
+            renderMainView();
+          });
+        });
+
+        document.querySelectorAll('.t3b-input').forEach((input) => {
+          input.addEventListener('input', (e) => {
+            const id = input.getAttribute('data-t3b-input');
+            state.t3bAnswers[id] = e.target.value;
+            saveState();
+          });
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+              const id = input.getAttribute('data-t3b-input');
+              state.t3bChecked[id] = true;
+              saveState();
+              renderMainView();
+            }
+          });
+        });
+
+        document.querySelectorAll('.t3b-check-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-t3b-check');
+            state.t3bChecked[id] = true;
+            saveState();
+            renderMainView();
+          });
+        });
+
+        document.querySelectorAll('.t3b-reveal-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-t3b-reveal');
+            const item = TUTORIAL_3_SEC_B.find((x) => x.id === id);
+            if (item) {
+              state.t3bAnswers[id] = item.answer;
+              state.t3bChecked[id] = true;
+              saveState();
+              renderMainView();
+            }
+          });
+        });
+
+        const checkAllSecB = document.getElementById('btn-check-all-secb');
+        if (checkAllSecB) {
+          checkAllSecB.addEventListener('click', () => {
+            TUTORIAL_3_SEC_B.forEach((item) => {
+              state.t3bChecked[item.id] = true;
+            });
+            saveState();
+            renderMainView();
+            showToast('All 20 fill-in-the-blank items checked!', 'success');
+          });
+        }
+
+        document.querySelectorAll('.t3c-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-t3c-id');
+            const val = btn.getAttribute('data-t3c-val') === 'true';
+            state.t3cAnswers[id] = val;
+            saveState();
+            renderMainView();
+          });
+        });
+
+        const resetT3Btn = document.getElementById('btn-reset-t3');
+        if (resetT3Btn) {
+          resetT3Btn.addEventListener('click', () => {
+            state.t3aAnswers = {};
+            state.t3bAnswers = {};
+            state.t3bChecked = {};
+            state.t3cAnswers = {};
+            saveState();
+            renderMainView();
+            showToast('Tutorial 3 progress cleared.', 'info');
+          });
+        }
+
+        // Mock Exam events
+        const mockCountSel = document.getElementById('mock-select-count');
+        if (mockCountSel) {
+          mockCountSel.addEventListener('change', (e) => {
+            mockExam.count = Number(e.target.value);
+          });
+        }
+        const mockTimeSel = document.getElementById('mock-select-time');
+        if (mockTimeSel) {
+          mockTimeSel.addEventListener('change', (e) => {
+            mockExam.minutes = Number(e.target.value);
+          });
+        }
+        const mockSourceSel = document.getElementById('mock-select-source');
+        if (mockSourceSel) {
+          mockSourceSel.addEventListener('change', (e) => {
+            mockExam.source = e.target.value;
+          });
+        }
+        const startMockBtn = document.getElementById('btn-start-mock');
+        if (startMockBtn) {
+          startMockBtn.addEventListener('click', startMockExam);
+        }
+
+        document.querySelectorAll('.mock-opt-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            mockExam.answers[mockExam.currentIndex] = Number(btn.getAttribute('data-mock-opt'));
+            renderMainView();
+          });
+        });
+
+        document.querySelectorAll('.mock-jump-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            mockExam.currentIndex = Number(btn.getAttribute('data-mock-jump'));
+            renderMainView();
+          });
+        });
+
+        const mockPrevBtn = document.getElementById('btn-mock-prev');
+        if (mockPrevBtn) {
+          mockPrevBtn.addEventListener('click', () => {
+            if (mockExam.currentIndex > 0) {
+              mockExam.currentIndex--;
+              renderMainView();
+            }
+          });
+        }
+
+        const mockNextBtn = document.getElementById('btn-mock-next');
+        if (mockNextBtn) {
+          mockNextBtn.addEventListener('click', () => {
+            if (mockExam.currentIndex < mockExam.questions.length - 1) {
+              mockExam.currentIndex++;
+              renderMainView();
+            }
+          });
+        }
+
+        const mockSubmitBtn = document.getElementById('btn-mock-submit');
+        if (mockSubmitBtn) {
+          mockSubmitBtn.addEventListener('click', finishMockExam);
+        }
+
+        const mockAbortBtn = document.getElementById('btn-mock-abort');
+        if (mockAbortBtn) {
+          mockAbortBtn.addEventListener('click', () => {
+            clearInterval(mockExam.timerId);
+            mockExam.status = 'setup';
+            renderMainView();
+          });
+        }
+
+        const mockRestartBtn = document.getElementById('btn-mock-restart');
+        if (mockRestartBtn) {
+          mockRestartBtn.addEventListener('click', () => {
+            mockExam.status = 'setup';
+            renderMainView();
+          });
+        }
+
+        // Copy Code buttons in Labs tab
+        document.querySelectorAll('.copy-code-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const key = btn.getAttribute('data-copy-key');
+            if (CODE_SNIPPETS[key]) {
+              copyToClipboard(CODE_SNIPPETS[key], 'Code snippet');
+            }
+          });
+        });
+      }
+
+      // =========================================================================
+      // 11. GLOBAL HEADER & PERSISTENT CONTROLS INITIALIZATION
+      // =========================================================================
+      document.querySelectorAll('.main-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          setActiveTab(btn.getAttribute('data-tab'));
+        });
+      });
+
+      document.getElementById('btn-theme-toggle').addEventListener('click', () => {
+        applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+      });
+
+      document.getElementById('toggle-study-mode').addEventListener('change', (e) => {
+        state.studyMode = e.target.checked;
+        saveState();
+        syncStudyModeUI();
+        renderMainView();
+        showToast(
+          state.studyMode ? 'Study Key Mode enabled — all answers revealed!' : 'Practice Mode active.',
+          state.studyMode ? 'success' : 'info'
+        );
+      });
+
+      document.getElementById('btn-disable-study-mode').addEventListener('click', () => {
+        state.studyMode = false;
+        saveState();
+        syncStudyModeUI();
+        renderMainView();
+      });
+
+      const globalSearchInput = document.getElementById('global-search');
+      const clearSearchBtn = document.getElementById('btn-clear-search');
+
+      globalSearchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        clearSearchBtn.classList.toggle('hidden', !searchQuery);
+        if (activeTab === 'assignment1' || activeTab === 'tutorial3') {
+          renderMainView();
+        }
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchQuery = '';
+        globalSearchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        renderMainView();
+      });
+
+      document.getElementById('btn-reset-all').addEventListener('click', () => {
+        localStorage.removeItem(STORAGE_KEY);
+        const keepTheme = state.theme;
+        state = loadState();
+        state.theme = keepTheme;
+        saveState();
+        syncStudyModeUI();
+        renderMainView();
+        showToast('All saved progress has been reset.', 'info');
+      });
+
+      // Boot Application
+      applyTheme(state.theme);
+      syncStudyModeUI();
+      renderMainView();
+      lucide.createIcons();
+    })();
+  </script>
+</body>
+</html>
